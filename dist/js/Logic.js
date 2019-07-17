@@ -25,4 +25,8 @@ class Logic {
         const cityInfo = this.cityData.find(c=> c.name == cityName)
         cityInfo ? apiManager.createCity(cityInfo) : null
     }
+
+    removeCity(cityName){
+        apiManager.deleteCity(cityName)
+    }
 }

@@ -24,7 +24,6 @@ router.post('/city', (req, res)=>{
 
 router.delete('/city/:cityName', (req, res)=>{
     const cityName = req.params.cityName
-        .replace('+', ' ')
     City.findOneAndDelete({name: cityName}).then(city=>res.send(city.name + ' was deleted from DB'))
 })
 

@@ -13,6 +13,10 @@ class APIManager {
         this.useAjax('post', '/city', null, cityInfo)
     }
 
+    deleteCity(cityName){
+        this.useAjax('delete', '/city/' + cityName)
+    }
+
     useAjax(method, url, success = response=>response, data){
         return $.ajax({
             method,
