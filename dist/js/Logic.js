@@ -5,7 +5,7 @@ class Logic {
     // TODO: add fail cases for all
     getCities(){
         return apiManager.fetchCities()
-            .then(cities=> cities[0] ? this.cityData = [...cities] : false)
+            .then(cities=> cities[0] ? this.cityData = [...cities] : false) // failcase
     }
 
     getCityData(cityName){
@@ -23,7 +23,13 @@ class Logic {
 
     saveCity(cityName){
         const cityInfo = this.cityData.find(c=> c.name == cityName)
-        cityInfo ? apiManager.createCity(cityInfo) : null
+        if(cityInfo){
+            apiManager.createCity(cityInfo)
+            this.getCities()
+            return true
+        } else {
+            return false // failcase
+        }
     }
 
     removeCity(cityName){

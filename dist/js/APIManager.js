@@ -10,7 +10,7 @@ class APIManager {
     }
 
     createCity(cityInfo){
-        this.useAjax('post', '/city', null, cityInfo)
+        return this.useAjax('post', '/city', null, cityInfo)
     }
 
     deleteCity(cityName){
