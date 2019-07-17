@@ -9,5 +9,8 @@ const loadPage = ()=>{
     logic.getCities()
         .then(cities=>renderer.renderData(cities))
 }
-
 loadPage()
+
+const handleSearch = ()=>{
+    
+}
