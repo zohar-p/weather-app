@@ -2,7 +2,7 @@ class Renderer {
     
 
     renderData(allCities){
-        this.useHandlebars('city', allCities, '#cities')
+        allCities.forEach(c=> this.useHandlebars('city', c, '#cities'))
     }
     
     useHandlebars(templateName, data, appendTo){
