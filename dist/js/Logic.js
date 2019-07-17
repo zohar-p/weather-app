@@ -9,6 +9,15 @@ class Logic {
     }
 
     getCityData(cityName){
-        apiManager.fetchCityData(cityName).then(data=>console.log(data))
+        apiManager.fetchCityData(cityName)
+            .then(data=>{
+                this.cityData.push({
+                    name: data.location.name,
+                    updatedAt: data.current.last_updated,
+                    temp: data.current.temp_c,
+                    condition: data.current.condition.text,
+                    conditionPic: data.current.condition.icon
+                })
+            })
     }
 }
