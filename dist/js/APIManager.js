@@ -5,6 +5,10 @@ class APIManager {
         return this.useAjax('get', '/cities')
     }
 
+    fetchCityData(cityName){
+        return this.useAjax('get', '/city/:' + cityName)
+    }
+
     useAjax(method, url, success = response=>response, data){
         return $.ajax({
             method,
