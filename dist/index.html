@@ -9,12 +9,27 @@
 </head>
 <body>
 <header></header>
-<main></main>
-<footer></footer>
+<main>
+    <div id="cities"></div>
+</main>
+
+<!-- HANDLEBARS TEMPLATE -->
+<script id="city-template" type="test/text/x-handlebars-template">
+    <div class="single-city">
+        <h3 class="city-name">{{name}}</h3>
+        <div class="city-temp">{{temp}}</div>
+        <div class="city-condition">
+            <div class="city-condition-text">{{condition}}</div>
+            <div class="city-condition-pic">{{conditionPic}}</div>
+        </div>
+        <div class="city-updated-at">{{updatedAt}}</div>
+    </div>
+</script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script src="js/APIManager
-.js"></script>
+<script src="handlebars/dist/handlebars.js"></script>
+<script src="jquery/dist/jquery.js"></script>
+<script src="js/APIManager.js"></script>
 <script src="js/Renderer.js"></script>
 <script src="js/Logic.js"></script>
 <script src="js/main.js"></script>
