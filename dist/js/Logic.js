@@ -9,7 +9,7 @@ class Logic {
     }
 
     getCityData(cityName){
-        apiManager.fetchCityData(cityName)
+        return apiManager.fetchCityData(cityName)
             .then(data=>{
                 this.cityData.push({
                     name: data.location.name,

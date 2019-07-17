@@ -25,9 +25,9 @@ class APIManager {
             success,
             error: (xhr, text, err) => console.log(`
             ERROR on $.ajax call:
-            XHR: xhr
-            Text: text
-            Error: err`)
+            XHR: ${xhr}
+            Text: ${text}
+            Error: ${err}`)
         })
     }
 
