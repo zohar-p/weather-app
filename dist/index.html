@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Title</title>
+    <title>How's The Weather</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="@fortawesome/fontawesome-free/js/all.js"></script>
 </head>
 <body>
 
@@ -22,6 +23,7 @@
 <!-- HANDLEBARS TEMPLATE -->
 <script id="city-template" type="test/text/x-handlebars-template">
     <div class="single-city">
+        <button><i class="fas fa-plus-circle"></i></button>
         <h3 class="city-name">{{name}}</h3>
         <div class="city-temp">{{temp}}</div>
         <div class="city-condition">
