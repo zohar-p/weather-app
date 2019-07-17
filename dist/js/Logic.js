@@ -20,4 +20,9 @@ class Logic {
                 })
             })
     }
+
+    saveCity(cityName){
+        const cityInfo = this.cityData.find(c=> c.name == cityName)
+        cityInfo ? apiManager.createCity(cityInfo) : null
+    }
 }

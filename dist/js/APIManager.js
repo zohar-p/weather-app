@@ -9,6 +9,10 @@ class APIManager {
         return this.useAjax('get', '/city/:' + cityName)
     }
 
+    createCity(cityInfo){
+        this.useAjax('post', '/city', null, cityInfo)
+    }
+
     useAjax(method, url, success = response=>response, data){
         return $.ajax({
             method,
