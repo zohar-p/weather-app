@@ -2,10 +2,10 @@ class Logic {
     constructor(){
         this.cityData = []
     }
-
+    // TODO: add fail cases for all
     getCities(){
-        apiManager.fetchCities()
-            .then(cities=> cities != [] ? this.cityData = [...cities] : null) // TODO: fail case for empty DB
+        return apiManager.fetchCities()
+            .then(cities=> cities[0] ? this.cityData = [...cities] : false)
     }
 
     getCityData(cityName){
@@ -28,5 +28,6 @@ class Logic {
 
     removeCity(cityName){
         apiManager.deleteCity(cityName)
+        this.getCities()
     }
 }
