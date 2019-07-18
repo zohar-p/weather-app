@@ -34,3 +34,9 @@ class Logic {
         return apiManager.deleteCity(cityName)
     }
 }
+
+
+
+
+
+// changes
