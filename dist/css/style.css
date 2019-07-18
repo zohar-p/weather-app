@@ -165,6 +165,8 @@ header {
   background: #fc9f25;
   background: -webkit-gradient(linear, left bottom, left top, from(#fc9f25), color-stop(50%, #cca84e), color-stop(75%, #1bc8e6), to(#00cdfe));
   background: linear-gradient(0deg, #fc9f25 0%, #cca84e 50%, #1bc8e6 75%, #00cdfe 100%);
+  color: #ecf0f1;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
 }
 
 #mountains-bg {
@@ -174,7 +176,7 @@ header {
 }
 
 #displayed-city {
-  padding: .6rem;
+  padding: 0 .6rem;
   z-index: 10;
   height: 60vh;
   width: 100%;
@@ -183,9 +185,9 @@ header {
   -ms-grid-rows: 10vh 1fr 4fr 1fr 1fr;
       grid-template-rows: 10vh 1fr 4fr 1fr 1fr;
   justify-items: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: end;
 }
 
 #displayed-temp {

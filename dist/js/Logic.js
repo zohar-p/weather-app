@@ -17,7 +17,7 @@ class Logic {
         if(alreadyExist){
             // TODO: fail case for if exist
         } else {
-            this.cityData.push({
+            this.cityData.unshift({
                 name: fetchedCityData.location.name,
                 updatedAt: fetchedCityData.current.last_updated,
                 temp: fetchedCityData.current.temp_c,

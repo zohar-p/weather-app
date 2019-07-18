@@ -1,9 +1,14 @@
 // TODO:
 
-// on load render current location weather
 // handle external API error
-// change push to unshift
+// updatedAt apears as mins ago
+// on city lookup city displayed and active
+// displayed city fade in/out
+// change to Farenheit on tap
+// change color according to temp
+// manage cities order
 // failcase all calls
+// on load render current location weather
 
 
 const logic = new Logic
