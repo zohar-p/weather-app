@@ -141,16 +141,23 @@ header {
   background-color: transparent;
 }
 
-#displayed-city {
-  padding: .6rem;
-  width: 100%;
+#main-display {
+  position: relative;
   -ms-flex-preferred-size: 60vh;
       flex-basis: 60vh;
   max-height: 60vh;
-  background-image: url("../assets/mountains.svg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: bottom;
+}
+
+#mountains-bg {
+  position: absolute;
+  bottom: 0;
+  -webkit-filter: hue-rotate(-20deg);
+          filter: hue-rotate(-20deg);
+}
+
+#displayed-city {
+  padding: .6rem;
+  width: 100%;
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: 10vh 1fr 4fr 1fr 1fr;
