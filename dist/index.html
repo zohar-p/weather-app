@@ -4,17 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Title</title>
+    <title>How's The Weather</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="@fortawesome/fontawesome-free/js/all.js"></script>
 </head>
 <body>
-<header></header>
-<main></main>
-<footer></footer>
+
+<header>
+    <h1>How's The Weather</h1>
+    <input type="text" id="search-inp" placeholder="Look up a city">
+    <button id="search-btn">Search</button>
+</header>
+
+<main>
+    <div id="cities"></div>
+</main>
+
+<!-- HANDLEBARS TEMPLATE -->
+<script id="city-template" type="test/text/x-handlebars-template">
+    <div class="single-city">
+        {{#if isSaved}}
+            <button class="remove-city-btn"><i class="fas fa-times-circle"></i></button>
+        {{else}}
+            <button class="save-city-btn"><i class="fas fa-plus-circle"></i></button>
+        {{/if}}
+        <h3 class="city-name">{{name}}</h3>
+        <div class="city-temp">{{temp}}</div>
+        <div class="city-condition">
+            <div class="city-condition-text">{{condition}}</div>
+            <div class="city-condition-pic">{{conditionPic}}</div>
+        </div>
+        <div class="city-updated-at">{{updatedAt}}</div>
+    </div>
+</script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script src="js/APIManager
-.js"></script>
+<script src="handlebars/dist/handlebars.js"></script>
+<script src="jquery/dist/jquery.js"></script>
+<script src="js/APIManager.js"></script>
 <script src="js/Renderer.js"></script>
 <script src="js/Logic.js"></script>
 <script src="js/main.js"></script>
