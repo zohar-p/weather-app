@@ -1,0 +1,21 @@
+#cities {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.single-city {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .city-name {
+        align-self: center;
+    }
+
+    button {
+        display: block;
+        width: 3rem;
+        font-size: 2rem;
+        background-color: transparent;
+    }
+}

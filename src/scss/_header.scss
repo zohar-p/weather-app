@@ -25,10 +25,8 @@ header {
     width: 2.4rem;
     height: 2.4rem;
     border-radius: 50%;
-    border: none;
     background-color: $blue;
     color: $white;
-    outline: none;
 
     &:active {
         background-color: darken($blue, 5);

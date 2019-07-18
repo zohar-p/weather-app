@@ -12,28 +12,43 @@
 
 <header>
     <input type="text" id="search-inp" placeholder="Look up a city">
-    <button id="search-btn"><i class="fas fa-search"></i></button>
+    <button id="search-btn" class="btn"><i class="fas fa-search"></i></button>
 </header>
 
 <main>
-    <div id="cities"></div>
+    <div id="displayed-city"></div>
+    <ul id="cities"></ul>
 </main>
 <!-- HANDLEBARS TEMPLATE -->
-<script id="city-template" type="test/text/x-handlebars-template">
+<script id="displayed-city-template" type="test/text/x-handlebars-template">
     <div class="single-city">
-        <button class="remove-city-btn"><i class="fas fa-times-circle"></i></button>
         {{#if isSaved}}
-            <button class="pinned-city-btn"><i class="fas fa-thumbtack"></i></button>
+        <button class="pinned-city-btn"><i class="fas fa-thumbtack"></i></button>
         {{else}}
-            <button class="save-city-btn"><i class="fas fa-thumbtack"></i></button>
+        <button class="save-city-btn"><i class="fas fa-thumbtack"></i></button>
         {{/if}}
         <h3 class="city-name">{{name}}</h3>
         <div class="city-temp">{{temp}}</div>
         <div class="city-condition">
             <div class="city-condition-text">{{condition}}</div>
-            <div class="city-condition-pic">{{conditionPic}}</div>
+            <img class="city-condition-pic" src="{{conditionPic}}">
         </div>
         <div class="city-updated-at">{{updatedAt}}</div>
+        <button class="remove-city-btn"><i class="fas fa-times-circle"></i></button>
+    </div>
+</script>
+
+<script id="city-item-template" type="test/text/x-handlebars-template">
+    <div class="single-city">
+        {{#if isSaved}}
+        <button class="pinned-city-btn btn"><i class="fas fa-thumbtack"></i></button>
+        {{else}}
+        <button class="save-city-btn"><i class="fas fa-thumbtack"></i></button>
+        {{/if}}
+        <h3 class="city-name">{{name}}</h3>
+        <div class="city-temp">{{temp}} &#8451</div>
+        <img class="city-condition-pic" src="{{conditionPic}}">
+        <button class="remove-city-btn btn"><i class="fas fa-times-circle"></i></button>
     </div>
 </script>
 

@@ -6,7 +6,7 @@ class Renderer {
 
     renderData(allCities){
         this.citiesBox.empty()
-        allCities.forEach(c=> this.useHandlebars('city', c, '#cities'))
+        allCities.forEach(c=> this.useHandlebars('city-item', c, '#cities'))
     }
     
     useHandlebars(templateName, data, appendTo){
