@@ -148,17 +148,19 @@ header {
 
 #main-display {
   position: relative;
+  z-index: -10;
   -ms-flex-preferred-size: 60vh;
       flex-basis: 60vh;
   max-height: 60vh;
+  background: #fc9f25;
+  background: -webkit-gradient(linear, left bottom, left top, from(#fc9f25), color-stop(50%, #cca84e), color-stop(75%, #1bc8e6), to(#00cdfe));
+  background: linear-gradient(0deg, #fc9f25 0%, #cca84e 50%, #1bc8e6 75%, #00cdfe 100%);
 }
 
 #mountains-bg {
   position: absolute;
   bottom: 0;
   z-index: -1;
-  -webkit-filter: hue-rotate(-20deg);
-          filter: hue-rotate(-20deg);
 }
 
 #displayed-city {

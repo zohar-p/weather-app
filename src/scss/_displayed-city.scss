@@ -1,14 +1,17 @@
 #main-display {
     position: relative;
+    z-index: -10;
     flex-basis: 60vh;
     max-height: 60vh;
+    background: rgb(252,159,37);
+    background: linear-gradient(0deg, rgba(252,159,37,1) 0%, rgba(204,168,78,1) 50%, rgba(27,200,230,1) 75%, rgba(0,205,254,1) 100%);
+    // filter: hue-rotate(120deg);
 }
 
 #mountains-bg {
     position: absolute;
     bottom: 0;
     z-index: -1;
-    filter: hue-rotate(-20deg)
 }
 
 #displayed-city {
