@@ -1,5 +1,28 @@
 #displayed-city {
+    padding: .6rem;
     width: 100%;
     flex-basis: 60vh;
+    max-height: 60vh;
     background-color: $blue;
+
+    display: grid;
+    grid-template-rows: 10vh 1fr 4fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
 }
+
+#displayed-temp {
+    font-size: 6rem;
+    position: relative;
+
+    #displayed-degrees {
+        font-size: 2rem;
+        position: absolute;
+    }
+}
+
+#displayed-updated-at {
+    justify-self: left;
+    font-size: .8rem;
+}
+

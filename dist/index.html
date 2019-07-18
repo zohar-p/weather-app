@@ -24,13 +24,13 @@
 <!-- HANDLEBARS TEMPLATE -->
 <script id="displayed-city-template" type="test/text/x-handlebars-template">
     <div id="placeholder"></div>
-    <h3 class="city-name">{{name}}</h3>
-    <div class="city-temp">{{temp}} &#8457</div>
-    <div class="city-condition">
-        <div class="city-condition-text">{{condition}}</div>
-        <img class="city-condition-pic" src="{{conditionPic}}">
+    <h3 id="displayed-name">{{name}}</h3>
+    <div id="displayed-temp">{{temp}}<span id="displayed-degrees">&#8457</span></div>
+    <div id="displayed-condition">
+        <img id="displayed-condition-pic" src="{{conditionPic}}">
+        <div id="displayed-condition-text">{{condition}}</div>
     </div>
-    <div class="city-updated-at">{{updatedAt}}</div>
+    <div id="displayed-updated-at">{{updatedAt}}</div>
 </script>
 <script id="city-item-template" type="test/text/x-handlebars-template">
     <div class="single-city">
