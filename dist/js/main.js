@@ -53,3 +53,8 @@ $('#cities').on('click', '.city-preview', function () {
     renderer.renderDisplayedCity(relCity)
     renderer.renderActiveCity(cityBox)
 });
+
+$('#search-inp').on('focus', function () {
+    $(this).attr('placeholder', 'Look up a city')
+        .removeClass('error')
+})

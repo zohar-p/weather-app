@@ -72,6 +72,10 @@ header {
   border: none;
 }
 
+#search-inp.error {
+  width: 80%;
+}
+
 #search-inp.error::-webkit-input-placeholder {
   color: #e74c3c;
 }

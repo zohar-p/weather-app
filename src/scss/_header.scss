@@ -23,8 +23,12 @@ header {
     outline: none;
     border: none;
 
-    &.error::placeholder {
-        color: $red;
+    &.error{
+        width: 80%;
+        
+        &::placeholder {
+            color: $red;
+        }
     }
     
     &:focus {
