@@ -10,27 +10,28 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: $primary;
 
     .city-preview {
         display: flex;
         width: 100%;
-        justify-content: space-between;
         align-items: center;
-        
-            .city-name {
-                align-self: center;
-                margin-left: 8px;
-            }
     }
 
-    .pinned-city-btn {
-        color: $green;
+    .city-name {
+        flex: auto;
     }
-
-    button {
+    
+    .btn {
+        padding: 0 0.6rem;
         display: block;
-        width: 3rem;
+        min-height: 64px;
         font-size: 2rem;
+        color: $primary;
         background-color: transparent;
+    }
+
+    .save-city-btn {
+        color: $weakPrim;
     }
 }

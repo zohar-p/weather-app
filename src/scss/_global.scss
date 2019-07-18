@@ -1,5 +1,6 @@
 // VARIABLES
-// $primary: ;
+$primary: rgba(52, 152, 219, 1);
+$weakPrim: rgba(52, 152, 219, .3);
 // $accent: ;
 $red: rgba(231, 76, 60,1.0);
 $green: rgba(46, 204, 113,1.0);
@@ -11,6 +12,7 @@ $purple: rgba(155, 89, 182,1.0);
 $black: rgba(45, 52, 54,1.0);
 $white: rgba(236, 240, 241,1.0);
 $grey: rgba(178, 190, 195,1.0);
+$test: #f5f6fa;
 
 // GLOBAL STYLES
 *{

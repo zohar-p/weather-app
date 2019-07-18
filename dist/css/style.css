@@ -109,6 +109,7 @@ header {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  color: #3498db;
 }
 
 .single-city .city-preview {
@@ -116,30 +117,28 @@ header {
   display: -ms-flexbox;
   display: flex;
   width: 100%;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
-.single-city .city-preview .city-name {
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
-  margin-left: 8px;
+.single-city .city-name {
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
 }
 
-.single-city .pinned-city-btn {
-  color: #2ecc71;
-}
-
-.single-city button {
+.single-city .btn {
+  padding: 0 0.6rem;
   display: block;
-  width: 3rem;
+  min-height: 64px;
   font-size: 2rem;
+  color: #3498db;
   background-color: transparent;
+}
+
+.single-city .save-city-btn {
+  color: rgba(52, 152, 219, 0.3);
 }
 
 #main-display {
