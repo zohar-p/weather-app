@@ -5,10 +5,11 @@ const apixuKey = '1977f5ea55e247c7bf194254191707'
 const apixuUrl = `http://api.apixu.com/v1/current.json?key=${apixuKey}&q=`
 const City = require('../models/City')
 
-router.get('/city/:cityName', async (req, res)=>{
+router.get('/city/:cityName', (req, res)=>{
     const city = req.params.cityName
-    const weatherData = await request.get(apixuUrl + city)
-    res.send(JSON.parse(weatherData))
+    request.get(apixuUrl + city).then(weatherData =>{
+        res.send(JSON.parse(weatherData))
+    }).catch(err => res.send(err))
 })
 
 router.get('/cities', (req, res)=>{

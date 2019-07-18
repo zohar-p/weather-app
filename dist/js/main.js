@@ -27,8 +27,8 @@ $('#search-btn').on('click', async function () {
     if(!searchVal){
         // TODO: handle empty input
     } else {
-        await logic.getCityData(searchVal)
-        renderer.renderData(logic.cityData)
+        const isError = await logic.getCityData(searchVal)
+        isError ? renderer.renderError(isError) : renderer.renderData(logic.cityData)
     }
 });
 

@@ -21,6 +21,12 @@ class Renderer {
         city.prev('.hr').hide()
         city.next('.hr').hide()
     }
+
+    renderError(error){
+        $('#search-inp').attr('placeholder', error)
+            .addClass('error')
+        console.log(error)
+    }
     
     useHandlebars(templateName, data, appendTo){
         const src = $('#'+templateName+'-template').html()

@@ -22,6 +22,10 @@ header {
     
     outline: none;
     border: none;
+
+    &.error::placeholder {
+        color: $red;
+    }
     
     &:focus {
         background-color: rgba(256,256,256,.65);
