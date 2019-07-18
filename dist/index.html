@@ -23,7 +23,11 @@
 <!-- HANDLEBARS TEMPLATE -->
 <script id="city-template" type="test/text/x-handlebars-template">
     <div class="single-city">
-        <button><i class="fas fa-plus-circle"></i></button>
+        {{#if isSaved}}
+            <button class="remove-city-btn"><i class="fas fa-times-circle"></i></button>
+        {{else}}
+            <button class="save-city-btn"><i class="fas fa-plus-circle"></i></button>
+        {{/if}}
         <h3 class="city-name">{{name}}</h3>
         <div class="city-temp">{{temp}}</div>
         <div class="city-condition">

@@ -3,9 +3,9 @@ class Logic {
         this.cityData = []
     }
     // TODO: add fail cases for all
-    getCities(){
-        return apiManager.fetchCities()
-            .then(cities=> cities[0] ? this.cityData = [...cities] : false) // failcase
+    async getCities(){
+        const cities = await apiManager.fetchCities()
+        cities.length ? this.cityData = [...cities] : null // failcase
     }
 
     getCityData(cityName){
@@ -16,24 +16,21 @@ class Logic {
                     updatedAt: data.current.last_updated,
                     temp: data.current.temp_c,
                     condition: data.current.condition.text,
-                    conditionPic: data.current.condition.icon
+                    conditionPic: data.current.condition.icon,
+                    isSaved: false
                 })
+            }).catch(err => {
+
             })
     }
 
     saveCity(cityName){
         const cityInfo = this.cityData.find(c=> c.name == cityName)
-        if(cityInfo){
-            apiManager.createCity(cityInfo)
-            this.getCities()
-            return true
-        } else {
-            return false // failcase
-        }
+        cityInfo.isSaved = true
+        return cityInfo ? apiManager.createCity(cityInfo) : false
     }
 
     removeCity(cityName){
-        apiManager.deleteCity(cityName)
-        this.getCities()
+        return apiManager.deleteCity(cityName)
     }
 }

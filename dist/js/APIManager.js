@@ -14,7 +14,7 @@ class APIManager {
     }
 
     deleteCity(cityName){
-        this.useAjax('delete', '/city/' + cityName)
+        return this.useAjax('delete', '/city/' + cityName)
     }
 
     useAjax(method, url, success = response=>response, data){
