@@ -147,7 +147,10 @@ header {
   -ms-flex-preferred-size: 60vh;
       flex-basis: 60vh;
   max-height: 60vh;
-  background-color: #3498db;
+  background-image: url("../assets/mountains.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom;
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: 10vh 1fr 4fr 1fr 1fr;
