@@ -8,20 +8,16 @@ class Logic {
         cities.length ? this.cityData = [...cities] : null // failcase
     }
 
-    getCityData(cityName){
-        return apiManager.fetchCityData(cityName)
-            .then(data=>{
-                this.cityData.push({
-                    name: data.location.name,
-                    updatedAt: data.current.last_updated,
-                    temp: data.current.temp_c,
-                    condition: data.current.condition.text,
-                    conditionPic: data.current.condition.icon,
-                    isSaved: false
-                })
-            }).catch(err => {
-
-            })
+    async getCityData(cityName){
+        const fetchedCityData = await apiManager.fetchCityData(cityName)
+        this.cityData.push({
+            name: fetchedCityData.location.name,
+            updatedAt: fetchedCityData.current.last_updated,
+            temp: fetchedCityData.current.temp_c,
+            condition: fetchedCityData.current.condition.text,
+            conditionPic: fetchedCityData.current.condition.icon,
+            isSaved: false
+        })
     }
 
     saveCity(cityName){
@@ -34,9 +30,3 @@ class Logic {
         return apiManager.deleteCity(cityName)
     }
 }
-
-
-
-
-
-// changes

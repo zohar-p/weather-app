@@ -2,8 +2,6 @@
 // failcase all calls
 
 
-
-
 const logic = new Logic
 const renderer = new Renderer
 const apiManager = new APIManager
@@ -14,29 +12,27 @@ const loadPage = async ()=>{
 }
 loadPage()
 
-$('#search-btn').on('click', function () { 
+$('#search-btn').on('click', async function () { 
     const searchVal = $('#search-inp').val()
+    $('#search-inp').val('')
     if(!searchVal){
         // TODO: handle empty input
     } else {
-        logic.getCityData(searchVal)
-        .then(()=>{
-            renderer.renderData(logic.cityData)
-        })
+        await logic.getCityData(searchVal)
+        renderer.renderData(logic.cityData)
     }
 });
 
 $('#cities').on('click', '.save-city-btn', async function () {
     const cityName = $(this).closest('.single-city').find('.city-name').text()
     await logic.saveCity(cityName)
-    const cities = await logic.getCities()
-    // await logic.getCities()
+    await logic.getCities()
     renderer.renderData(logic.cityData)
 });
 
-$('#cities').on('click', '.remove-city-btn', function () {
+$('#cities').on('click', '.remove-city-btn', async function () {
     const cityName = $(this).closest('.single-city').find('.city-name').text()
-    logic.removeCity(cityName)
-        .then(()=>logic.getCities()
-            .then(()=>renderer.renderData(logic.cityData)))
+    await logic.removeCity(cityName)
+    await logic.getCities()
+    renderer.renderData(logic.cityData)
 });
