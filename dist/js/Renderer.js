@@ -13,6 +13,14 @@ class Renderer {
         $('#displayed-city').empty()
         this.useHandlebars('displayed-city', city, '#displayed-city')
     }
+
+    renderActiveCity(city){
+        $('.single-city').removeClass('active')
+        $('.hr').show()
+        city.addClass('active')
+        city.prev('.hr').hide()
+        city.next('.hr').hide()
+    }
     
     useHandlebars(templateName, data, appendTo){
         const src = $('#'+templateName+'-template').html()
