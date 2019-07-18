@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>How's The Weather</title>
+    <link href="https://fonts.googleapis.com/css?family=Numans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script src="@fortawesome/fontawesome-free/js/all.js"></script>
 </head>
@@ -28,7 +29,7 @@
         <button class="save-city-btn"><i class="fas fa-thumbtack"></i></button>
         {{/if}}
         <h3 class="city-name">{{name}}</h3>
-        <div class="city-temp">{{temp}}</div>
+        <div class="city-temp">{{temp}} &#8457</div>
         <div class="city-condition">
             <div class="city-condition-text">{{condition}}</div>
             <img class="city-condition-pic" src="{{conditionPic}}">
@@ -43,7 +44,7 @@
         {{#if isSaved}}
         <button class="pinned-city-btn btn"><i class="fas fa-thumbtack"></i></button>
         {{else}}
-        <button class="save-city-btn"><i class="fas fa-thumbtack"></i></button>
+        <button class="save-city-btn btn"><i class="fas fa-thumbtack"></i></button>
         {{/if}}
         <h3 class="city-name">{{name}}</h3>
         <div class="city-temp">{{temp}} &#8451</div>

@@ -8,8 +8,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     .city-name {
         align-self: center;
+    }
+
+    .pinned-city-btn {
+        color: $green;
     }
 
     button {

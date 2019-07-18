@@ -3,6 +3,7 @@
   margin: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  font-family: 'Numans', sans-serif;
 }
 
 body {
@@ -111,14 +112,14 @@ header {
       align-self: center;
 }
 
+.single-city .pinned-city-btn {
+  color: #2ecc71;
+}
+
 .single-city button {
   display: block;
   width: 3rem;
   font-size: 2rem;
   background-color: transparent;
-}
-
-.save-city-btn {
-  color: #2ecc71;
 }
 /*# sourceMappingURL=style.css.map */
