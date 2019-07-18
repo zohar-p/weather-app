@@ -40,3 +40,10 @@ $('#cities').on('click', '.remove-city-btn', async function () {
     await logic.getCities()
     renderer.renderData(logic.cityData)
 });
+
+$('#cities').on('click', '.city-preview', function () {
+
+    const cityName = $(this).closest('.single-city').find('.city-name').text()
+    const relCity = logic.cityData.find(c => c.name == cityName)
+    renderer.renderDisplayedCity(relCity)
+});

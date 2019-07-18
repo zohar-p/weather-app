@@ -8,6 +8,11 @@ class Renderer {
         this.citiesBox.empty()
         allCities.forEach(c=> this.useHandlebars('city-item', c, '#cities'))
     }
+
+    renderDisplayedCity(city){
+        $('#displayed-city').empty()
+        this.useHandlebars('displayed-city', city, '#displayed-city')
+    }
     
     useHandlebars(templateName, data, appendTo){
         const src = $('#'+templateName+'-template').html()

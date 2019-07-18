@@ -20,23 +20,17 @@
     <div id="displayed-city"></div>
     <ul id="cities"></ul>
 </main>
+
 <!-- HANDLEBARS TEMPLATE -->
 <script id="displayed-city-template" type="test/text/x-handlebars-template">
-    <div class="single-city">
-        {{#if isSaved}}
-        <button class="pinned-city-btn"><i class="fas fa-thumbtack"></i></button>
-        {{else}}
-        <button class="save-city-btn"><i class="fas fa-thumbtack"></i></button>
-        {{/if}}
-        <h3 class="city-name">{{name}}</h3>
-        <div class="city-temp">{{temp}} &#8457</div>
-        <div class="city-condition">
-            <div class="city-condition-text">{{condition}}</div>
-            <img class="city-condition-pic" src="{{conditionPic}}">
-        </div>
-        <div class="city-updated-at">{{updatedAt}}</div>
-        <button class="remove-city-btn"><i class="fas fa-times-circle"></i></button>
+    <div id="placeholder"></div>
+    <h3 class="city-name">{{name}}</h3>
+    <div class="city-temp">{{temp}} &#8457</div>
+    <div class="city-condition">
+        <div class="city-condition-text">{{condition}}</div>
+        <img class="city-condition-pic" src="{{conditionPic}}">
     </div>
+    <div class="city-updated-at">{{updatedAt}}</div>
 </script>
 <script id="city-item-template" type="test/text/x-handlebars-template">
     <div class="single-city">
