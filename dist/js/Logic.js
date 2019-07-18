@@ -31,8 +31,8 @@ class Logic {
     async saveCity(cityName){
         const cityInfo = this.cityData.find(c=> c.name == cityName)
         if(cityInfo){
-            await apiManager.createCity(cityInfo)
             cityInfo.isSaved = true
+            await apiManager.createCity(cityInfo)
         }
     }
 
