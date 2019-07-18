@@ -44,8 +44,8 @@ main {
 }
 
 header {
-  -ms-flex-preferred-size: 10vh;
-      flex-basis: 10vh;
+  position: absolute;
+  height: 10vh;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.1);
   display: -webkit-box;
@@ -86,8 +86,8 @@ header {
 
 #cities {
   width: 100%;
-  -ms-flex-preferred-size: 45vh;
-      flex-basis: 45vh;
+  -ms-flex-preferred-size: 40vh;
+      flex-basis: 40vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -143,8 +143,8 @@ header {
 
 #displayed-city {
   width: 100%;
-  -ms-flex-preferred-size: 45vh;
-      flex-basis: 45vh;
+  -ms-flex-preferred-size: 60vh;
+      flex-basis: 60vh;
   background-color: #3498db;
 }
 /*# sourceMappingURL=style.css.map */
