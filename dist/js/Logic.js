@@ -5,7 +5,10 @@ class Logic {
     // TODO: add fail cases for all
     async getCities(){
         const cities = await apiManager.fetchCities()
-        cities.length ? this.cityData = [...cities] : null // failcase
+        if(cities.length){
+            this.cityData = this.cityData.filter(c=> !c.isSaved)
+            this.cityData.push(...cities)
+        }
     }
 
     async getCityData(cityName){
