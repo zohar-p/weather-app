@@ -20,10 +20,12 @@ class Logic {
         })
     }
 
-    saveCity(cityName){
+    async saveCity(cityName){
         const cityInfo = this.cityData.find(c=> c.name == cityName)
-        cityInfo.isSaved = true
-        return cityInfo ? apiManager.createCity(cityInfo) : false
+        if(cityInfo){
+            await apiManager.createCity(cityInfo)
+            cityInfo.isSaved = true
+        }
     }
 
     removeCity(cityName){

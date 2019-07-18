@@ -5,8 +5,8 @@ class APIManager {
         return this.useAjax('get', '/cities')
     }
 
-    async fetchCityData(cityName){
-        return await this.useAjax('get', '/city/:' + cityName)
+    fetchCityData(cityName){
+        return this.useAjax('get', '/city/:' + cityName)
     }
 
     createCity(cityInfo){

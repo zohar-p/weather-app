@@ -15,15 +15,16 @@ router.get('/cities', (req, res)=>{
     City.find({}).sort('name').then(cities=>res.send(cities))
 })
 
-router.post('/city', (req, res)=>{
+router.post('/city',async  (req, res)=>{
     const newCity = new City({...req.body})
-    newCity.save()
+    await newCity.save()
     res.send(newCity.name + ' was saved to the DB')
 })
 
-router.delete('/city/:cityName', (req, res)=>{
+router.delete('/city/:cityName', async (req, res)=>{
     const cityName = req.params.cityName
-    City.findOneAndDelete({name: cityName}).then(city=>res.send(city.name + ' was deleted from DB'))
+    await City.findOneAndDelete({name: cityName})
+    res.send(city.name + ' was deleted from DB')
 })
 
 module.exports = router
