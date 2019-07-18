@@ -19,14 +19,14 @@
 <main>
     <div id="cities"></div>
 </main>
-
 <!-- HANDLEBARS TEMPLATE -->
 <script id="city-template" type="test/text/x-handlebars-template">
     <div class="single-city">
+        <button id="remove-city-btn"><i class="fas fa-times-circle"></i></button>
         {{#if isSaved}}
-            <button class="remove-city-btn"><i class="fas fa-times-circle"></i></button>
+            <button class="pinned-city-btn"><i class="fas fa-thumbtack"></i></button>
         {{else}}
-            <button class="save-city-btn"><i class="fas fa-plus-circle"></i></button>
+            <button class="save-city-btn"><i class="fas fa-thumbtack"></i></button>
         {{/if}}
         <h3 class="city-name">{{name}}</h3>
         <div class="city-temp">{{temp}}</div>
