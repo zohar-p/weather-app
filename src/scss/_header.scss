@@ -1,0 +1,37 @@
+header {
+    flex-basis: 10vh;
+    width: 100%;
+    background-color: #eee;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#search-inp {
+    padding: .2rem .6rem;
+    line-height: 2rem;
+    border-radius: 2rem;
+    border: 1px solid $grey;
+    transition: border .3s;
+    outline: none;
+    
+    &:focus {
+        border: 1px solid $blue;
+    }
+}
+
+#search-btn {
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    border: none;
+    background-color: $blue;
+    color: $white;
+    outline: none;
+
+    &:active {
+        background-color: darken($blue, 5);
+    }
+}
+

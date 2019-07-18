@@ -8,6 +8,13 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .btn {
@@ -23,6 +30,49 @@ body {
   background: #ecf0f1;
   background: -webkit-gradient(linear, left top, right top, from(#ecf0f1), color-stop(15%, #b2bec3), color-stop(85%, #b2bec3), to(#ecf0f1));
   background: linear-gradient(90deg, #ecf0f1 0%, #b2bec3 15%, #b2bec3 85%, #ecf0f1 100%);
+}
+
+header {
+  -ms-flex-preferred-size: 10vh;
+      flex-basis: 10vh;
+  width: 100%;
+  background-color: #eee;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+#search-inp {
+  padding: .2rem .6rem;
+  line-height: 2rem;
+  border-radius: 2rem;
+  border: 1px solid #b2bec3;
+  -webkit-transition: border .3s;
+  transition: border .3s;
+  outline: none;
+}
+
+#search-inp:focus {
+  border: 1px solid #3498db;
+}
+
+#search-btn {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  border: none;
+  background-color: #3498db;
+  color: #ecf0f1;
+  outline: none;
+}
+
+#search-btn:active {
+  background-color: #258cd1;
 }
 
 .save-city-btn {
