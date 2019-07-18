@@ -7,11 +7,14 @@
 #mountains-bg {
     position: absolute;
     bottom: 0;
+    z-index: -1;
     filter: hue-rotate(-20deg)
 }
 
 #displayed-city {
     padding: .6rem;
+    z-index: 10;
+    height: 60vh;
     width: 100%;
     // background-image: url('../assets/mountains.svg');
     // background-repeat: no-repeat;
