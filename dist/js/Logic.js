@@ -37,6 +37,8 @@ class Logic {
     }
 
     removeCity(cityName){
-        return apiManager.deleteCity(cityName)
+        const relCity = this.cityData.find(c => c.name == cityName)
+        this.cityData = this.cityData.filter(c => c.name != cityName)
+        relCity.isSaved ? apiManager.deleteCity(cityName) : null
     }
 }
