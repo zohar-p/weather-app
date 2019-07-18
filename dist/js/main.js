@@ -1,4 +1,8 @@
 // TODO:
+
+// on load render current location weather
+// handle external API error
+// change push to unshift
 // failcase all calls
 
 
