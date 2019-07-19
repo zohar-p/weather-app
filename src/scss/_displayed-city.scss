@@ -4,10 +4,10 @@
     flex-basis: 60vh;
     max-height: 60vh;
     background: rgb(252,159,37);
-    background: linear-gradient(0deg, rgba(252,159,37,1) 0%, rgba(204,168,78,1) 50%, rgba(27,200,230,1) 75%, rgba(0,205,254,1) 100%);
+    // background: linear-gradient(0deg, rgba(252,159,37,1) 0%, rgba(204,168,78,1) 50%, rgba(27,200,230,1) 75%, rgba(0,205,254,1) 100%);
     color: $white;
-    text-shadow: 0 0 3px rgba(0, 0, 0, .4)
-    // filter: hue-rotate(120deg);
+    text-shadow: 0 0 3px rgba(0, 0, 0, .4);
+    transition: filter 1.2s
 }
 
 #mountains-bg {

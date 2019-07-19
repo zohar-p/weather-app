@@ -8,7 +8,9 @@ class Renderer {
         this.citiesBox.empty()
         allCities.forEach(c=> this.useHandlebars('city-item', c, '#cities'))
         if(city){
+            console.log(city.temp)
             const cityBox = $(`.city-name:contains(${city.name})`).closest('.single-city')
+            this.renderBgcolor(city.temp)
             this.renderActiveCity(cityBox)
             this.renderDisplayedCity(city)
         }
@@ -27,6 +29,18 @@ class Renderer {
         city.addClass('active')
         city.prev('.hr').hide()
         city.next('.hr').hide()
+    }
+
+    renderBgcolor(temp){
+        let rotateBy
+        if(temp > 40){
+            rotateBy = 0
+        } else if (temp > 0) {
+            rotateBy = 160 - (temp * 4)
+        } else {
+            rotateBy = 160
+        }
+        $('#main-display').css('filter', `hue-rotate(${rotateBy}deg)`)
     }
 
     renderError(error){

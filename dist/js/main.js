@@ -52,6 +52,7 @@ $('#cities').on('click', '.city-preview', function () {
     const relCity = logic.cityData.find(c => c.name == cityName)
     renderer.renderDisplayedCity({...relCity})
     renderer.renderActiveCity(cityBox)
+    renderer.renderBgcolor(relCity.temp)
 });
 
 $('#search-inp').on('focus', function () {
