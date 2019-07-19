@@ -1,11 +1,10 @@
 // TODO:
 
-// on city lookup city displayed and active
-
 // add set interval for updated at
 // updatedAt apears as mins ago (fix format time)
 // fix blink in displayed city rendering
 // change to Farenheit on tap
+// size cities list according to amount of cities
 // change color according to temp
 // manage cities order
 // failcase all calls

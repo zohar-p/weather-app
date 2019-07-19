@@ -11,6 +11,7 @@
     justify-content: space-between;
     align-items: center;
     color: $primary;
+    transition: box-shadow .3s;
 
     .city-preview {
         display: flex;

@@ -15,7 +15,7 @@ class Renderer {
     }
 
     renderDisplayedCity(city){
-        city.updatedAt = this.formatTime(city.updatedAt)
+        // city.updatedAt = this.formatTime(city.updatedAt)
         $('#displayed-city').animate({opacity: 0}, 200).empty()
         this.useHandlebars('displayed-city', city, '#displayed-city')
         $('#displayed-city').animate({opacity: 1}, 200)
@@ -36,7 +36,7 @@ class Renderer {
 
     formatTime(time){
         time = moment.utc(time).local()
-        // time = moment.utc(time)
+        time = moment.utc(time)
         // .local().format('YYYY-MM-DD HH:mm:ss')
         time = moment(time).fromNow()
         return time

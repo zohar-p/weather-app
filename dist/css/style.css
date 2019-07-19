@@ -140,6 +140,10 @@ header {
       -ms-flex-align: center;
           align-items: center;
   color: #3498db;
+  -webkit-transition: -webkit-box-shadow .3s;
+  transition: -webkit-box-shadow .3s;
+  transition: box-shadow .3s;
+  transition: box-shadow .3s, -webkit-box-shadow .3s;
 }
 
 .single-city .city-preview {
