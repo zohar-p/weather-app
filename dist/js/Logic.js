@@ -19,7 +19,7 @@ class Logic {
         } else {
             const alreadyExist = this.cityData.find(c=> c.name == fetchedCityData.location.name)
             if(alreadyExist){
-                return {error: 'This city id already in your list'}
+                return {error: 'This city is already in your list'}
             } else {
                 this.cityData.unshift({
                     name: fetchedCityData.location.name,

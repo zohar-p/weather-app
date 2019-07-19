@@ -41,6 +41,7 @@ class Renderer {
             rotateBy = 160
         }
         $('#main-display').css('filter', `hue-rotate(${rotateBy}deg)`)
+        $('#sky-bg').css('filter', `hue-rotate(-${rotateBy}deg)`)
     }
 
     renderError(error){

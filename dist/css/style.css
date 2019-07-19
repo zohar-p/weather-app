@@ -186,7 +186,9 @@ header {
   -ms-flex-preferred-size: 60vh;
       flex-basis: 60vh;
   max-height: 60vh;
-  background: #fc9f25;
+  background: #d57901;
+  background: -webkit-gradient(linear, left bottom, left top, from(#d57901), color-stop(56%, #feb04b));
+  background: linear-gradient(0deg, #d57901 0%, #feb04b 56%);
   color: #ecf0f1;
   text-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
   -webkit-transition: -webkit-filter 1.2s;
@@ -195,10 +197,25 @@ header {
   transition: filter 1.2s, -webkit-filter 1.2s;
 }
 
+#sky-bg {
+  width: 100%;
+  min-height: 60vh;
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  -webkit-transition: -webkit-filter 1.2s;
+  transition: -webkit-filter 1.2s;
+  transition: filter 1.2s;
+  transition: filter 1.2s, -webkit-filter 1.2s;
+  background: #90fffd;
+  background: -webkit-gradient(linear, left top, left bottom, from(#90fffd), color-stop(10%, #02ebe6), color-stop(40%, rgba(105, 250, 247, 0)));
+  background: linear-gradient(180deg, #90fffd 0%, #02ebe6 10%, rgba(105, 250, 247, 0) 40%);
+}
+
 #mountains-bg {
   position: absolute;
   bottom: 0;
-  z-index: -1;
+  z-index: -5;
 }
 
 #displayed-city {

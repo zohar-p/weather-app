@@ -3,17 +3,28 @@
     z-index: -10;
     flex-basis: 60vh;
     max-height: 60vh;
-    background: rgb(252,159,37);
-    // background: linear-gradient(0deg, rgba(252,159,37,1) 0%, rgba(204,168,78,1) 50%, rgba(27,200,230,1) 75%, rgba(0,205,254,1) 100%);
+    background: rgb(213,121,1);
+    background: linear-gradient(0deg, rgba(213,121,1,1) 0%, rgba(254,176,75,1) 56%);
     color: $white;
     text-shadow: 0 0 3px rgba(0, 0, 0, .4);
     transition: filter 1.2s
 }
 
+#sky-bg {
+    width: 100%;
+    min-height: 60vh;
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    transition: filter 1.2s;
+    background: rgb(144,255,253);
+    background: linear-gradient(180deg, rgba(144,255,253,1) 0%, rgba(2,235,230,1) 10%, rgba(105,250,247,0) 40%);
+}
+
 #mountains-bg {
     position: absolute;
     bottom: 0;
-    z-index: -1;
+    z-index: -5;
 }
 
 #displayed-city {
