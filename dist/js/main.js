@@ -1,9 +1,9 @@
 // TODO:
 
-// updatedAt apears as mins ago
 // add set interval for updated at
+// updatedAt apears as mins ago (fix format time)
+// fix blink in displayed city rendering
 // on city lookup city displayed and active
-// displayed city fade in/out
 // change to Farenheit on tap
 // change color according to temp
 // manage cities order
@@ -27,8 +27,8 @@ $('#search-btn').on('click', async function () {
     if(!searchVal){
         // TODO: handle empty input
     } else {
-        const isError = await logic.getCityData(searchVal)
-        isError ? renderer.renderError(isError) : renderer.renderData(logic.cityData)
+        const city = await logic.getCityData(searchVal)
+        city.hasOwnProperty('error') ? renderer.renderError(city.error) : renderer.renderData(logic.cityData)
     }
 });
 
@@ -50,7 +50,7 @@ $('#cities').on('click', '.city-preview', function () {
     const cityBox = $(this).closest('.single-city')
     const cityName = cityBox.find('.city-name').text()
     const relCity = logic.cityData.find(c => c.name == cityName)
-    renderer.renderDisplayedCity(relCity)
+    renderer.renderDisplayedCity({...relCity})
     renderer.renderActiveCity(cityBox)
 });
 

@@ -13,14 +13,13 @@ class Logic {
 
     async getCityData(cityName){
         const fetchedCityData = await apiManager.fetchCityData(cityName)
-        const isError = fetchedCityData.hasOwnProperty('error')
-        if(isError){
+        if(fetchedCityData.hasOwnProperty('error')){
             const errorMsg = JSON.parse(fetchedCityData.error).error.message
-            return errorMsg
+            return {error: errorMsg}
         } else {
             const alreadyExist = this.cityData.find(c=> c.name == fetchedCityData.location.name)
             if(alreadyExist){
-                // TODO: fail case for if exist
+                return {error: 'This city id already in your list'}
             } else {
                 this.cityData.unshift({
                     name: fetchedCityData.location.name,
@@ -30,6 +29,7 @@ class Logic {
                     conditionPic: fetchedCityData.current.condition.icon,
                     isSaved: false
                 })
+                return this.cityData[0]
             }
         }
     }

@@ -9,8 +9,9 @@ class Renderer {
         allCities.forEach(c=> this.useHandlebars('city-item', c, '#cities'))
     }
 
-    async renderDisplayedCity(city){
-        await $('#displayed-city').animate({opacity: 0}, 200).empty()
+    renderDisplayedCity(city){
+        city.updatedAt = this.formatTime(city.updatedAt)
+        $('#displayed-city').animate({opacity: 0}, 200).empty()
         this.useHandlebars('displayed-city', city, '#displayed-city')
         $('#displayed-city').animate({opacity: 1}, 200)
     }
@@ -26,7 +27,17 @@ class Renderer {
     renderError(error){
         $('#search-inp').attr('placeholder', error)
             .addClass('error')
-        console.log(error)
+    }
+
+    formatTime(time){
+        time = moment.utc(time).local()
+        console.log(time.format())
+        time = moment.utc(time)
+        // .local().format('YYYY-MM-DD HH:mm:ss')
+        console.log(time.format())
+        time = moment(time).fromNow()
+        console.log(time)
+        return time
     }
     
     useHandlebars(templateName, data, appendTo){
