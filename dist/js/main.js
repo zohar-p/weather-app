@@ -1,7 +1,7 @@
 // TODO:
 
-// handle external API error
 // updatedAt apears as mins ago
+// add set interval for updated at
 // on city lookup city displayed and active
 // displayed city fade in/out
 // change to Farenheit on tap

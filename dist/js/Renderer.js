@@ -9,9 +9,10 @@ class Renderer {
         allCities.forEach(c=> this.useHandlebars('city-item', c, '#cities'))
     }
 
-    renderDisplayedCity(city){
-        $('#displayed-city').empty()
+    async renderDisplayedCity(city){
+        await $('#displayed-city').animate({opacity: 0}, 200).empty()
         this.useHandlebars('displayed-city', city, '#displayed-city')
+        $('#displayed-city').animate({opacity: 1}, 200)
     }
 
     renderActiveCity(city){
