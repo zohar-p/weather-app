@@ -1,9 +1,10 @@
 // TODO:
 
+// on city lookup city displayed and active
+
 // add set interval for updated at
 // updatedAt apears as mins ago (fix format time)
 // fix blink in displayed city rendering
-// on city lookup city displayed and active
 // change to Farenheit on tap
 // change color according to temp
 // manage cities order
@@ -28,7 +29,7 @@ $('#search-btn').on('click', async function () {
         // TODO: handle empty input
     } else {
         const city = await logic.getCityData(searchVal)
-        city.hasOwnProperty('error') ? renderer.renderError(city.error) : renderer.renderData(logic.cityData)
+        city.hasOwnProperty('error') ? renderer.renderError(city.error) : renderer.renderData(logic.cityData, city)
     }
 });
 

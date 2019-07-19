@@ -4,9 +4,14 @@ class Renderer {
     }
     
 
-    renderData(allCities){
+    renderData(allCities, city){
         this.citiesBox.empty()
         allCities.forEach(c=> this.useHandlebars('city-item', c, '#cities'))
+        if(city){
+            const cityBox = $(`.city-name:contains(${city.name})`).closest('.single-city')
+            this.renderActiveCity(cityBox)
+            this.renderDisplayedCity(city)
+        }
     }
 
     renderDisplayedCity(city){
@@ -31,12 +36,9 @@ class Renderer {
 
     formatTime(time){
         time = moment.utc(time).local()
-        console.log(time.format())
-        time = moment.utc(time)
+        // time = moment.utc(time)
         // .local().format('YYYY-MM-DD HH:mm:ss')
-        console.log(time.format())
         time = moment(time).fromNow()
-        console.log(time)
         return time
     }
     
