@@ -29,7 +29,6 @@
 
 #displayed-city {
     opacity: 0;
-    padding: 0 .6rem;
     z-index: 10;
     height: 60vh;
     width: 100%;
@@ -54,5 +53,11 @@
 #displayed-updated-at {
     justify-self: left;
     font-size: .8rem;
+}
+
+.refresh {
+    padding: .2rem;
+    cursor: pointer;
+    font-size: 2rem;
 }
 
