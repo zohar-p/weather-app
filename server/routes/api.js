@@ -28,9 +28,9 @@ router.delete('/city/:cityName', async (req, res)=>{
     res.send(city.name + ' was deleted from DB')
 })
 
-router.put('/city/:cityName', (req, res) => {
-    const cityName = req.params.cityName
-    const isSaved = false // change
+router.put('/city', (req, res) => {
+    const cityName = req.body.cityName
+    const isSaved = req.body.isSaved == 'false' ? false : true
     request.get(apixuUrl + cityName).then(weatherData =>{
         weatherData = JSON.parse(weatherData)
         const updatedCityData = {
@@ -41,9 +41,12 @@ router.put('/city/:cityName', (req, res) => {
             conditionPic: weatherData.current.condition.icon,
             isSaved
         }
+        console.log(isSaved)
         if(!isSaved){
+            console.log('city not saved')
             res.send(updatedCityData)
         } else {
+            console.log('city is saved')
             City.findOneAndUpdate({name: cityName}, {...updatedCityData}, {new: true}).then(doc => res.send(doc))
         }
     }).catch(err => res.send(err))

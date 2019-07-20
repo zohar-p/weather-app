@@ -8,7 +8,6 @@ class Renderer {
         this.citiesBox.empty()
         allCities.forEach(c=> this.useHandlebars('city-item', c, '#cities'))
         if(city){
-            console.log(city.temp)
             const cityBox = $(`.city-name:contains(${city.name})`).closest('.single-city')
             this.renderBgcolor(city.temp)
             this.renderActiveCity(cityBox)

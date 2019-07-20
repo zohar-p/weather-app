@@ -49,7 +49,12 @@ class Logic {
     }
 
     async refreshDisplayedCity(cityName){
-        const updatedCity = await apiManager.updateDisplayedCity(cityName)
+        const isCitySaved = this.cityData
+            .find(c => c.name == cityName)
+            .isSaved
+        console.log(isCitySaved ? 'city is saved' : 'city not saved')
+        const updatedCity = await apiManager.updateDisplayedCity(cityName, isCitySaved)
+        console.log(updatedCity)
         const relCityIndex = this.cityData.findIndex(c => c.name == cityName)
         this.cityData[relCityIndex] = updatedCity
         return this.cityData[relCityIndex]

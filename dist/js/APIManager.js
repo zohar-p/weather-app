@@ -17,8 +17,8 @@ class APIManager {
         return this.useAjax('delete', '/city/' + cityName)
     }
 
-    updateDisplayedCity(cityName){
-        return this.useAjax('PUT', '/city/' + cityName)
+    updateDisplayedCity(cityName, isSaved){
+        return this.useAjax('PUT', '/city', null, {cityName, isSaved})
     }
 
     useAjax(method, url, success = response=>response, data){
