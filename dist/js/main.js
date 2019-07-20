@@ -1,6 +1,8 @@
 // TODO:
 
 // add set interval for updated at
+// add a refresh btn (PUT request)
+// color updated at when over one hour
 // updatedAt apears as mins ago (fix format time)
 // fix blink in displayed city rendering
 // change to Farenheit on tap
