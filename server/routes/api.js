@@ -6,8 +6,8 @@ const apixuUrl = `http://api.apixu.com/v1/current.json?key=${apixuKey}&q=`
 const City = require('../models/City')
 
 router.get('/city/:cityName', (req, res)=>{
-    const city = req.params.cityName
-    request.get(apixuUrl + city).then(weatherData =>{
+    const cityName = req.params.cityName
+    request.get(apixuUrl + cityName).then(weatherData =>{
         res.send(JSON.parse(weatherData))
     }).catch(err => res.send(err))
 })
@@ -26,6 +26,21 @@ router.delete('/city/:cityName', async (req, res)=>{
     const cityName = req.params.cityName
     await City.findOneAndDelete({name: cityName})
     res.send(city.name + ' was deleted from DB')
+})
+
+router.put('/city/:cityName', (req, res) => {
+    const cityName = req.params.cityName
+    request.get(apixuUrl + cityName).then(weatherData =>{
+        weatherData = JSON.parse(weatherData)
+        City.findOneAndUpdate({name: cityName},
+            {
+                name: weatherData.location.name,
+                updatedAt: weatherData.current.last_updated,
+                temp: weatherData.current.temp_c,
+                condition: weatherData.current.condition.text,
+                conditionPic: weatherData.current.condition.icon
+            }, {new: true}).then(doc => res.send(doc))
+    }).catch(err => res.send(err))
 })
 
 module.exports = router

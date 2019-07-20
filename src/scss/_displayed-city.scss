@@ -42,6 +42,7 @@
 
 #displayed-temp {
     font-size: 6rem;
+    cursor: pointer;
     position: relative;
 
     #displayed-degrees {
@@ -55,9 +56,12 @@
     font-size: .8rem;
 }
 
-.refresh {
+#refresh {
+    z-index: 1000;
     padding: .2rem;
     cursor: pointer;
     font-size: 2rem;
+    background-color: transparent;
+    color: $white;
 }
 

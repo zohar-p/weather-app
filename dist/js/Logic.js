@@ -47,4 +47,11 @@ class Logic {
         this.cityData = this.cityData.filter(c => c.name != cityName)
         relCity.isSaved ? apiManager.deleteCity(cityName) : null
     }
+
+    async refreshDisplayedCity(cityName){
+        const updatedCity = await apiManager.updateDisplayedCity(cityName)
+        const relCityIndex = this.cityData.findIndex(c => c.name == updatedCity.name)
+        this.cityData[relCityIndex] = updatedCity
+        return this.cityData[relCityIndex]
+    }
 }

@@ -61,3 +61,9 @@ $('#search-inp').on('focus', function () {
     $(this).attr('placeholder', 'Look up a city')
         .removeClass('error')
 })
+
+$('#displayed-city').on('click', '#refresh', async function () {
+    const cityName = $('#displayed-name').text()
+    const relCity = await logic.refreshDisplayedCity(cityName)
+    renderer.renderDisplayedCity(relCity)
+});

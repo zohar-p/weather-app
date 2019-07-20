@@ -4,6 +4,7 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   font-family: 'Numans', sans-serif;
+  pointer-events: initial;
 }
 
 body {
@@ -16,9 +17,11 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  pointer-events: none;
 }
 
 main {
+  pointer-events: none;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -235,6 +238,7 @@ header {
 
 #displayed-temp {
   font-size: 6rem;
+  cursor: pointer;
   position: relative;
 }
 
@@ -249,9 +253,12 @@ header {
   font-size: .8rem;
 }
 
-.refresh {
+#refresh {
+  z-index: 1000;
   padding: .2rem;
   cursor: pointer;
   font-size: 2rem;
+  background-color: transparent;
+  color: #ecf0f1;
 }
 /*# sourceMappingURL=style.css.map */

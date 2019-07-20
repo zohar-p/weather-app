@@ -17,6 +17,10 @@ class APIManager {
         return this.useAjax('delete', '/city/' + cityName)
     }
 
+    updateDisplayedCity(cityName){
+        return this.useAjax('PUT', '/city/' + cityName)
+    }
+
     useAjax(method, url, success = response=>response, data){
         return $.ajax({
             method,
