@@ -7,7 +7,8 @@ const City = require('../models/City')
 
 router.get('/city/:cityName', (req, res)=>{
     const cityName = req.params.cityName
-    request.get(apixuUrl + cityName).then(weatherData =>{
+    console.log(cityName.replace(':', ''))
+    request.get(apixuUrl + cityName.replace(':', '')).then(weatherData =>{
         res.send(JSON.parse(weatherData))
     }).catch(err => res.send(err))
 })
@@ -41,12 +42,9 @@ router.put('/city', (req, res) => {
             conditionPic: weatherData.current.condition.icon,
             isSaved
         }
-        console.log(isSaved)
         if(!isSaved){
-            console.log('city not saved')
             res.send(updatedCityData)
         } else {
-            console.log('city is saved')
             City.findOneAndUpdate({name: cityName}, {...updatedCityData}, {new: true}).then(doc => res.send(doc))
         }
     }).catch(err => res.send(err))

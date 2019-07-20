@@ -11,7 +11,7 @@ class Logic {
         }
     }
 
-    async getCityData(cityName){
+    async getCityData(cityName, isCurrentLocation){
         const fetchedCityData = await apiManager.fetchCityData(cityName)
         if(fetchedCityData.hasOwnProperty('error')){
             const errorMsg = JSON.parse(fetchedCityData.error).error.message
@@ -22,7 +22,7 @@ class Logic {
                 return {error: 'This city is already in your list'}
             } else {
                 this.cityData.unshift({
-                    name: fetchedCityData.location.name,
+                    name: isCurrentLocation ? 'Current Location' : fetchedCityData.location.name,
                     updatedAt: fetchedCityData.current.last_updated,
                     temp: fetchedCityData.current.temp_c,
                     condition: fetchedCityData.current.condition.text,

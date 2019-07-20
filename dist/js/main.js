@@ -1,25 +1,31 @@
 // TODO:
 
 // add set interval for updated at
-// add a refresh btn (PUT request)
 // color updated at when over one hour
 // updatedAt apears as mins ago (fix format time)
 // fix blink in displayed city rendering
-// change to Farenheit on tap
 // size cities list according to amount of cities
-// change color according to temp
 // manage cities order
 // failcase all calls
 // on load render current location weather
-
 
 const logic = new Logic
 const renderer = new Renderer
 const apiManager = new APIManager
 
+const displayLocation = async (position) =>{
+    let lat = position.coords.latitude
+    let long = position.coords.longitude
+    console.log(lat + ',' + long)
+    const city = await logic.getCityData(lat + ',' + long, true)
+    city.hasOwnProperty('error') ? renderer.renderError(city.error) : renderer.renderData(logic.cityData, city)
+}
+
 const loadPage = async ()=>{
     await logic.getCities()
     renderer.renderData(logic.cityData)
+    const currentLocationExist = $('.city-name:contains("Current Location")').length
+    currentLocationExist ? null : navigator.geolocation.getCurrentPosition(displayLocation)
 }
 loadPage()
 
