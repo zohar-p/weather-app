@@ -1,7 +1,7 @@
 # weather-app
 A simple mobile web app for getting the current weather of chosen locations around the world.
 
-You can check out the web app [https://how-is-the-weather.herokuapp.com/](live on Heroku).
+You can check out the web app [live on Heroku](https://how-is-the-weather.herokuapp.com/).
 
 ### Features
 - Allow access to current location in order to get the current weather in your location on start up.
