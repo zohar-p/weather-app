@@ -1,23 +1,26 @@
 // TODO:
 
-// add set interval for updated at
-// color updated at when over one hour
 // updatedAt apears as mins ago (fix format time)
-// fix blink in displayed city rendering
-// size cities list according to amount of cities
+// When a city is re-searched select it
+// Make current location unique - no option to save it and maybe different appearence
+// add Cron timer for repeating calls.
+// add set interval for updated at
 // manage cities order
+// handle search fail
+// fix blink in displayed city rendering
 // failcase all calls
-// on load render current location weather
+// size cities list according to amount of cities
 
 const logic = new Logic
 const renderer = new Renderer
 const apiManager = new APIManager
 
 const displayLocation = async (position) =>{
-    let lat = position.coords.latitude
-    let long = position.coords.longitude
-    console.log(lat + ',' + long)
-    const city = await logic.getCityData(lat + ',' + long, true)
+    const geolocation = {
+        lat: position.coords.latitude,
+        long: position.coords.longitude
+    }
+    const city = await logic.getCityData(geolocation, true)
     city.hasOwnProperty('error') ? renderer.renderError(city.error) : renderer.renderData(logic.cityData, city)
 }
 

@@ -11,22 +11,27 @@ class Logic {
         }
     }
 
-    async getCityData(cityName, isCurrentLocation){
-        const fetchedCityData = await apiManager.fetchCityData(cityName)
-        if(fetchedCityData.hasOwnProperty('error')){
+    async getCityData(location, isCurrentLocation){
+        const query = isCurrentLocation ? `lat=${location.lat}&long=${location.long}` : `q=${location}`
+        console.log(query)
+        const fetchedCityData = await apiManager.fetchCityData(query)
+        console.log(fetchedCityData)
+        if(fetchedCityData.failed){
             const errorMsg = JSON.parse(fetchedCityData.error).error.message
+            // TODO: Handle search fail
             return {error: errorMsg}
         } else {
-            const alreadyExist = this.cityData.find(c=> c.name == fetchedCityData.location.name)
+            console.log('name: ' + fetchedCityData.name)
+            const alreadyExist = this.cityData.find(c=> c.name.toLowerCase() == fetchedCityData.name.toLowerCase())
             if(alreadyExist){
-                return {error: 'This city is already in your list'}
+                return {error: 'This city is already in your list'} // TODO: instead - select the city
             } else {
                 this.cityData.unshift({
-                    name: isCurrentLocation ? 'Current Location' : fetchedCityData.location.name,
-                    updatedAt: fetchedCityData.current.last_updated,
-                    temp: fetchedCityData.current.temp_c,
-                    condition: fetchedCityData.current.condition.text,
-                    conditionPic: fetchedCityData.current.condition.icon,
+                    name: isCurrentLocation ? 'Current Location' : fetchedCityData.name,
+                    updatedAt: fetchedCityData.dt,
+                    temp: fetchedCityData.main.temp,
+                    condition: fetchedCityData.weather.description,
+                    conditionPic: fetchedCityData.weather.icon,
                     isSaved: false
                 })
                 return this.cityData[0]

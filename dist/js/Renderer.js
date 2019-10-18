@@ -50,7 +50,7 @@ class Renderer {
 
     formatTime(time){
         time = moment.utc(time).local()
-        time = moment.utc(time)
+        // time = moment.utc(time)
         // .local().format('YYYY-MM-DD HH:mm:ss')
         time = moment(time).fromNow()
         return time

@@ -1,16 +1,15 @@
 const express = require('express')
 const router = express.Router()
 const request = require('request-promise-native')
-const apixuKey = '1977f5ea55e247c7bf194254191707'
-const apixuUrl = `http://api.apixu.com/v1/current.json?key=${apixuKey}&q=`
+const weatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?units=metric&appid=${process.env.WEATHER_API_KEY}&`
 const City = require('../models/City')
 
-router.get('/city/:cityName', (req, res)=>{
-    const cityName = req.params.cityName
-    console.log(cityName.replace(':', ''))
-    request.get(apixuUrl + cityName.replace(':', '')).then(weatherData =>{
+router.get('/city/', (req, res)=>{
+    const {lat, long, q} = req.query
+    const query = `q=${q}` || `lat=${lat}&lon=${long}`
+    request.get(weatherApiUrl + query).then(weatherData =>{
         res.send(JSON.parse(weatherData))
-    }).catch(err => res.send(err))
+    }).catch(error => res.send({failed: true, error}))
 })
 
 router.get('/cities', (req, res)=>{
@@ -32,7 +31,7 @@ router.delete('/city/:cityName', async (req, res)=>{
 router.put('/city', (req, res) => {
     const cityName = req.body.cityName
     const isSaved = req.body.isSaved == 'false' ? false : true
-    request.get(apixuUrl + cityName).then(weatherData =>{
+    request.get(weatherApiUrl + cityName).then(weatherData =>{
         weatherData = JSON.parse(weatherData)
         const updatedCityData = {
             name: weatherData.location.name,
