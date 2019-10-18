@@ -21,7 +21,7 @@ const displayLocation = async (position) =>{
         long: position.coords.longitude
     }
     const city = await logic.getCityData(geolocation, true)
-    city.hasOwnProperty('error') ? renderer.renderError(city.error) : renderer.renderData(logic.cityData, city)
+    city.failed ? renderer.renderError(city.errorMessage) : renderer.renderData(logic.cityData, city)
 }
 
 const loadPage = async ()=>{

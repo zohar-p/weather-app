@@ -13,27 +13,18 @@ class Logic {
 
     async getCityData(location, isCurrentLocation){
         const query = isCurrentLocation ? `lat=${location.lat}&long=${location.long}` : `q=${location}`
-        console.log(query)
         const fetchedCityData = await apiManager.fetchCityData(query)
         console.log(fetchedCityData)
         if(fetchedCityData.failed){
-            const errorMsg = JSON.parse(fetchedCityData.error).error.message
-            // TODO: Handle search fail
-            return {error: errorMsg}
+            console.log('failed')
+            return fetchedCityData
         } else {
-            console.log('name: ' + fetchedCityData.name)
             const alreadyExist = this.cityData.find(c=> c.name.toLowerCase() == fetchedCityData.name.toLowerCase())
             if(alreadyExist){
+                console.log('already exist')
                 return {error: 'This city is already in your list'} // TODO: instead - select the city
             } else {
-                this.cityData.unshift({
-                    name: isCurrentLocation ? 'Current Location' : fetchedCityData.name,
-                    updatedAt: fetchedCityData.dt,
-                    temp: fetchedCityData.main.temp,
-                    condition: fetchedCityData.weather.description,
-                    conditionPic: fetchedCityData.weather.icon,
-                    isSaved: false
-                })
+                this.cityData.unshift(fetchedCityData)
                 return this.cityData[0]
             }
         }

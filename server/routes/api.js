@@ -6,10 +6,23 @@ const City = require('../models/City')
 
 router.get('/city/', (req, res)=>{
     const {lat, long, q} = req.query
-    const query = `q=${q}` || `lat=${lat}&lon=${long}`
-    request.get(weatherApiUrl + query).then(weatherData =>{
-        res.send(JSON.parse(weatherData))
-    }).catch(error => res.send({failed: true, error}))
+    const isCurrentLocation = !q
+    const query = isCurrentLocation ? `lat=${lat}&lon=${long}` : `q=${q}`
+    console.log(weatherApiUrl + query)
+    request.get(weatherApiUrl + query)
+        .then(weatherData =>{
+            weatherData = JSON.parse(weatherData)
+            const locationWeather = {
+                name: isCurrentLocation ? 'Current Location' : weatherData.name,
+                updatedAt: weatherData.dt,
+                temp: Math.round(weatherData.main.temp * 10) / 10,
+                condition: weatherData.weather.description,
+                conditionPic: weatherData.weather.icon,
+                isSaved: false
+            }
+            res.send(locationWeather)        
+    })
+        .catch(error => res.send({failed: true, errorMessage: "Couldn't find city", error}))
 })
 
 router.get('/cities', (req, res)=>{
