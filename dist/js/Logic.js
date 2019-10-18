@@ -14,7 +14,6 @@ class Logic {
     async getCityData(location, isCurrentLocation){
         const query = isCurrentLocation ? `lat=${location.lat}&long=${location.long}` : `q=${location}`
         const fetchedCityData = await apiManager.fetchCityData(query)
-        console.log(fetchedCityData)
         if(fetchedCityData.failed){
             console.log('failed')
             return fetchedCityData

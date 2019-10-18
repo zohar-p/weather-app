@@ -3,21 +3,21 @@ const router = express.Router()
 const request = require('request-promise-native')
 const weatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?units=metric&appid=${process.env.WEATHER_API_KEY}&`
 const City = require('../models/City')
+const moment = require('moment')
 
 router.get('/city/', (req, res)=>{
     const {lat, long, q} = req.query
     const isCurrentLocation = !q
     const query = isCurrentLocation ? `lat=${lat}&lon=${long}` : `q=${q}`
-    console.log(weatherApiUrl + query)
     request.get(weatherApiUrl + query)
         .then(weatherData =>{
             weatherData = JSON.parse(weatherData)
             const locationWeather = {
                 name: isCurrentLocation ? 'Current Location' : weatherData.name,
-                updatedAt: weatherData.dt,
+                updatedAt: moment.unix(weatherData.dt).fromNow(),
                 temp: Math.round(weatherData.main.temp * 10) / 10,
-                condition: weatherData.weather.description,
-                conditionPic: weatherData.weather.icon,
+                condition: weatherData.weather[0].description,
+                conditionPic: `http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`,
                 isSaved: false
             }
             res.send(locationWeather)        
