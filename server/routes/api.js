@@ -13,8 +13,9 @@ router.get('/city/', (req, res)=>{
         .then(weatherData =>{
             weatherData = JSON.parse(weatherData)
             const locationWeather = {
+                id: weatherData.id,
                 name: isCurrentLocation ? 'Current Location' : weatherData.name,
-                updatedAt: moment.unix(weatherData.dt).fromNow(),
+                updatedAt: moment.unix(weatherData.dt),
                 temp: Math.round(weatherData.main.temp * 10) / 10,
                 condition: weatherData.weather[0].description,
                 conditionPic: `http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`,

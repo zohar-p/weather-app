@@ -16,10 +16,13 @@ class Renderer {
     }
 
     renderDisplayedCity(city){
-        // city.updatedAt = this.formatTime(city.updatedAt)
         $('#displayed-city').animate({opacity: 0}, 200).empty()
         this.useHandlebars('displayed-city', city, '#displayed-city')
         $('#displayed-city').animate({opacity: 1}, 200)
+    }
+
+    renderUpdatedAgo(minutesAgoString) {
+        $('#minutes-updated-ago').text(' ' + minutesAgoString)
     }
 
     renderActiveCity(city){
