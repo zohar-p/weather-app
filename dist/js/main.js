@@ -8,9 +8,13 @@ const displayLocation = async (position) =>{
         long: position.coords.longitude
     }
     const city = await logic.getCityData(geolocation, true)
-    city.failed ? renderer.renderError(city.errorMessage) : renderer.renderData(logic.cityData, city)
-    checkWhenWasLastUpdate()
-    setInterval(checkWhenWasLastUpdate, 60000)
+    if (city.failed) {
+        renderer.renderError(city.errorMessage)
+    } else {
+        renderer.renderCitiesList(logic.cityData)
+        renderer.renderCitySelection(city)
+        checkWhenWasLastUpdate()
+    }
 }
 
 const checkWhenWasLastUpdate = () => {
@@ -19,37 +23,46 @@ const checkWhenWasLastUpdate = () => {
     const duration = Math.round(moment.duration(moment().diff(moment(relCity.updatedAt))).asMinutes())
     const minutesAgoString = `Updated ${duration === 0 ? ' a few moments ' : duration === 1 ? ' a minute ' : ` ${duration} minutes `} ago`
     renderer.renderUpdatedAgo(minutesAgoString)
-    // if(duration > 9) {
-    //     if(relCity.isCurrentLocation) {
-    //         navigator.geolocation.getCurrentPosition(displayLocation)
-    //     } else {
-    //         refreshCity()
-    //     }
-    // }
+    if(duration > 19) {
+        if(relCity.isCurrentLocation) {
+            navigator.geolocation.getCurrentPosition(displayLocation)
+        } else {
+            refreshCity()
+        }
+    }
 }
 
 const onLoadPage = async ()=>{
     await logic.getCities()
-    renderer.renderData(logic.cityData)
+    renderer.renderCitiesList(logic.cityData)
     navigator.geolocation.getCurrentPosition(displayLocation)
+    setInterval(checkWhenWasLastUpdate, 60000)
 }
 
 const refreshCity = async () => {
-    const cityName = $('#displayed-name').text()
-    const relCity = await logic.refreshDisplayedCity(cityName)
-    renderer.renderDisplayedCity(relCity)
-    checkWhenWasLastUpdate()
+    const cityID = $('[data-display-city-id]').data('display-city-id')
+    const relCity = logic.cityData.find(c => c.id === cityID)
+    if(relCity.isCurrentLocation) {
+        navigator.geolocation.getCurrentPosition(displayLocation)
+    } else {
+        const updatedCity = await logic.refreshDisplayedCity(relCity.name)
+        renderer.renderDisplayedCity(updatedCity)
+        checkWhenWasLastUpdate()
+    }
 }
 
 $('#search-btn').on('click', async function () { 
     const searchVal = $('#search-inp').val()
     $('#search-inp').val('')
-    if(!searchVal){
-        // TODO: handle empty input
-    } else {
+    if(searchVal){
         const city = await logic.getCityData(searchVal)
-        city.failed ? renderer.renderError(city.errorMessage) : city.exist ? selectCity(city) : renderer.renderData(logic.cityData, city) // fix error handling
-        checkWhenWasLastUpdate()
+        if(city.failed) {
+            renderer.renderError(city.errorMessage)
+        } else {
+            if (!city.exist) { renderer.renderCitiesList(logic.cityData) }
+            renderer.renderCitySelection(city)
+            checkWhenWasLastUpdate()
+        }
     }
 });
 
@@ -57,28 +70,21 @@ $('#cities').on('click', '.save-city-btn', async function () {
     const cityName = $(this).closest('.single-city').find('.city-name').text()
     await logic.saveCity(cityName)
     await logic.getCities()
-    renderer.renderData(logic.cityData)
+    renderer.renderCitiesList(logic.cityData)
 });
 
 $('#cities').on('click', '.remove-city-btn', async function () {
     const cityName = $(this).closest('.single-city').find('.city-name').text()
     await logic.removeCity(cityName)
     await logic.getCities()
-    renderer.renderData(logic.cityData)
+    renderer.renderCitiesList(logic.cityData)
 });
-
-const selectCity = relCity => {
-    const cityBox = $(`[data-city-id=${relCity.id}]`)
-    renderer.renderDisplayedCity({...relCity})
-    renderer.renderActiveCity(cityBox)
-    renderer.renderBgcolor(relCity.temp)
-    checkWhenWasLastUpdate()
-}
 
 $('#cities').on('click', '.city-preview', function () {
     const cityID = $(this).closest('[data-city-id]').data('city-id')
     const relCity = logic.cityData.find(c => c.id == cityID)
-    selectCity(relCity)
+    renderer.renderCitySelection(relCity)
+    checkWhenWasLastUpdate()
 });
 
 $('#search-inp').on('focus', function () {

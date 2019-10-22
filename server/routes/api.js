@@ -18,7 +18,7 @@ router.get('/city/', (req, res)=>{
                 updatedAt: moment.unix(weatherData.dt),
                 temp: Math.round(weatherData.main.temp * 10) / 10,
                 condition: weatherData.weather[0].description,
-                conditionPic: `http://openweathermap.org/img/wn/${weatherData.weather[0].icon}`,
+                conditionPic: `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}`,
                 isSaved: false,
                 isCurrentLocation
             }
