@@ -45,6 +45,7 @@ class Logic {
         const relCityIndex = this.cityData.findIndex(c => c.name == cityName)
         const query = `q=${cityName}`
         const updatedCity = await apiManager.fetchCityData(query)
+        updatedCity.isSaved = this.cityData[relCityIndex].isSaved
         return this.cityData[relCityIndex] = updatedCity
     }
 }
