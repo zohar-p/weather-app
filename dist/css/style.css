@@ -189,9 +189,6 @@ header {
 #main-display {
   position: relative;
   z-index: -10;
-  -ms-flex-preferred-size: 60vh;
-      flex-basis: 60vh;
-  min-height: 60vh;
   background: #d57901;
   background: -webkit-gradient(linear, left bottom, left top, from(#d57901), color-stop(56%, #feb04b));
   background: linear-gradient(0deg, #d57901 0%, #feb04b 56%);
