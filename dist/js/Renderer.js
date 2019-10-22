@@ -16,10 +16,13 @@ class Renderer {
     }
 
     renderDisplayedCity(city){
-        // city.updatedAt = this.formatTime(city.updatedAt)
         $('#displayed-city').animate({opacity: 0}, 200).empty()
         this.useHandlebars('displayed-city', city, '#displayed-city')
         $('#displayed-city').animate({opacity: 1}, 200)
+    }
+
+    renderUpdatedAgo(minutesAgoString) {
+        $('#minutes-updated-ago').text(' ' + minutesAgoString)
     }
 
     renderActiveCity(city){
@@ -46,14 +49,6 @@ class Renderer {
     renderError(error){
         $('#search-inp').attr('placeholder', error)
             .addClass('error')
-    }
-
-    formatTime(time){
-        time = moment.utc(time).local()
-        time = moment.utc(time)
-        // .local().format('YYYY-MM-DD HH:mm:ss')
-        time = moment(time).fromNow()
-        return time
     }
     
     useHandlebars(templateName, data, appendTo){

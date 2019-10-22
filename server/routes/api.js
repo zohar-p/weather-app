@@ -1,16 +1,30 @@
 const express = require('express')
 const router = express.Router()
 const request = require('request-promise-native')
-const apixuKey = '1977f5ea55e247c7bf194254191707'
-const apixuUrl = `http://api.apixu.com/v1/current.json?key=${apixuKey}&q=`
+const weatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?units=metric&appid=${process.env.WEATHER_API_KEY}&`
 const City = require('../models/City')
+const moment = require('moment')
 
-router.get('/city/:cityName', (req, res)=>{
-    const cityName = req.params.cityName
-    console.log(cityName.replace(':', ''))
-    request.get(apixuUrl + cityName.replace(':', '')).then(weatherData =>{
-        res.send(JSON.parse(weatherData))
-    }).catch(err => res.send(err))
+router.get('/city/', (req, res)=>{
+    const {lat, long, q} = req.query
+    const isCurrentLocation = !q
+    const query = isCurrentLocation ? `lat=${lat}&lon=${long}` : `q=${q}`
+    request.get(weatherApiUrl + query)
+        .then(weatherData =>{
+            weatherData = JSON.parse(weatherData)
+            const locationWeather = {
+                id: weatherData.id,
+                name: weatherData.name,
+                updatedAt: moment.unix(weatherData.dt),
+                temp: Math.round(weatherData.main.temp * 10) / 10,
+                condition: weatherData.weather[0].description,
+                conditionPic: `http://openweathermap.org/img/wn/${weatherData.weather[0].icon}`,
+                isSaved: false,
+                isCurrentLocation
+            }
+            res.send(locationWeather)        
+    })
+        .catch(error => res.send({failed: true, errorMessage: "Couldn't find city", error}))
 })
 
 router.get('/cities', (req, res)=>{
@@ -32,7 +46,7 @@ router.delete('/city/:cityName', async (req, res)=>{
 router.put('/city', (req, res) => {
     const cityName = req.body.cityName
     const isSaved = req.body.isSaved == 'false' ? false : true
-    request.get(apixuUrl + cityName).then(weatherData =>{
+    request.get(weatherApiUrl + 'q=' + cityName).then(weatherData =>{
         weatherData = JSON.parse(weatherData)
         const updatedCityData = {
             name: weatherData.location.name,

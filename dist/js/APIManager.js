@@ -5,8 +5,8 @@ class APIManager {
         return this.useAjax('get', '/cities')
     }
 
-    fetchCityData(cityName){
-        return this.useAjax('get', '/city/:' + cityName)
+    fetchCityData(query){
+        return this.useAjax('get', '/city' + `?${query}`)
     }
 
     createCity(cityInfo){
@@ -15,10 +15,6 @@ class APIManager {
 
     deleteCity(cityName){
         return this.useAjax('delete', '/city/' + cityName)
-    }
-
-    updateDisplayedCity(cityName, isSaved){
-        return this.useAjax('PUT', '/city', null, {cityName, isSaved})
     }
 
     useAjax(method, url, success = response=>response, data){

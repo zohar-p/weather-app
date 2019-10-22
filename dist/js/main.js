@@ -1,33 +1,45 @@
-// TODO:
-
-// add set interval for updated at
-// color updated at when over one hour
-// updatedAt apears as mins ago (fix format time)
-// fix blink in displayed city rendering
-// size cities list according to amount of cities
-// manage cities order
-// failcase all calls
-// on load render current location weather
-
 const logic = new Logic
 const renderer = new Renderer
 const apiManager = new APIManager
 
 const displayLocation = async (position) =>{
-    let lat = position.coords.latitude
-    let long = position.coords.longitude
-    console.log(lat + ',' + long)
-    const city = await logic.getCityData(lat + ',' + long, true)
-    city.hasOwnProperty('error') ? renderer.renderError(city.error) : renderer.renderData(logic.cityData, city)
+    const geolocation = {
+        lat: position.coords.latitude,
+        long: position.coords.longitude
+    }
+    const city = await logic.getCityData(geolocation, true)
+    city.failed ? renderer.renderError(city.errorMessage) : renderer.renderData(logic.cityData, city)
+    checkWhenWasLastUpdate()
+    setInterval(checkWhenWasLastUpdate, 60000)
 }
 
-const loadPage = async ()=>{
+const checkWhenWasLastUpdate = () => {
+    const cityID = $('[data-display-city-id]').data('display-city-id')
+    const relCity = logic.cityData.find(c => c.id === cityID)
+    const duration = Math.round(moment.duration(moment().diff(moment(relCity.updatedAt))).asMinutes())
+    const minutesAgoString = `Updated ${duration === 0 ? ' a few moments ' : duration === 1 ? ' a minute ' : ` ${duration} minutes `} ago`
+    renderer.renderUpdatedAgo(minutesAgoString)
+    // if(duration > 9) {
+    //     if(relCity.isCurrentLocation) {
+    //         navigator.geolocation.getCurrentPosition(displayLocation)
+    //     } else {
+    //         refreshCity()
+    //     }
+    // }
+}
+
+const onLoadPage = async ()=>{
     await logic.getCities()
     renderer.renderData(logic.cityData)
-    const currentLocationExist = $('.city-name:contains("Current Location")').length
-    currentLocationExist ? null : navigator.geolocation.getCurrentPosition(displayLocation)
+    navigator.geolocation.getCurrentPosition(displayLocation)
 }
-loadPage()
+
+const refreshCity = async () => {
+    const cityName = $('#displayed-name').text()
+    const relCity = await logic.refreshDisplayedCity(cityName)
+    renderer.renderDisplayedCity(relCity)
+    checkWhenWasLastUpdate()
+}
 
 $('#search-btn').on('click', async function () { 
     const searchVal = $('#search-inp').val()
@@ -36,7 +48,8 @@ $('#search-btn').on('click', async function () {
         // TODO: handle empty input
     } else {
         const city = await logic.getCityData(searchVal)
-        city.hasOwnProperty('error') ? renderer.renderError(city.error) : renderer.renderData(logic.cityData, city)
+        city.failed ? renderer.renderError(city.errorMessage) : city.exist ? selectCity(city) : renderer.renderData(logic.cityData, city) // fix error handling
+        checkWhenWasLastUpdate()
     }
 });
 
@@ -54,13 +67,18 @@ $('#cities').on('click', '.remove-city-btn', async function () {
     renderer.renderData(logic.cityData)
 });
 
-$('#cities').on('click', '.city-preview', function () {
-    const cityBox = $(this).closest('.single-city')
-    const cityName = cityBox.find('.city-name').text()
-    const relCity = logic.cityData.find(c => c.name == cityName)
+const selectCity = relCity => {
+    const cityBox = $(`[data-city-id=${relCity.id}]`)
     renderer.renderDisplayedCity({...relCity})
     renderer.renderActiveCity(cityBox)
     renderer.renderBgcolor(relCity.temp)
+    checkWhenWasLastUpdate()
+}
+
+$('#cities').on('click', '.city-preview', function () {
+    const cityID = $(this).closest('[data-city-id]').data('city-id')
+    const relCity = logic.cityData.find(c => c.id == cityID)
+    selectCity(relCity)
 });
 
 $('#search-inp').on('focus', function () {
@@ -68,8 +86,6 @@ $('#search-inp').on('focus', function () {
         .removeClass('error')
 })
 
-$('#displayed-city').on('click', '#refresh', async function () {
-    const cityName = $('#displayed-name').text()
-    const relCity = await logic.refreshDisplayedCity(cityName)
-    renderer.renderDisplayedCity(relCity)
-});
+$('#displayed-city').on('click', '#refresh', refreshCity); 
+
+onLoadPage()
