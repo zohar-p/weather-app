@@ -38,8 +38,8 @@
 <script id="displayed-city-template" type="test/text/x-handlebars-template">
     <div id="placeholder"></div>
     {{#if isCurrentLocation}}
-    <h3>Current Location</h3>
-    <h4>(<span id="displayed-name" data-display-city-id={{id}}>{{name}}</span>)</h4>
+    <h3 id="displayed-name">Current Location</h3>
+    <h4>(<span data-display-city-id={{id}}>{{name}}</span>)</h4>
     {{else}}
     <h3 id="displayed-name" data-display-city-id={{id}}>{{name}}</h3>
     {{/if}}

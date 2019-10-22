@@ -21,6 +21,8 @@ body {
 }
 
 main {
+  height: 100vh;
+  overflow: hidden;
   pointer-events: none;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -40,7 +42,7 @@ main {
 .hr {
   margin: 0 auto;
   width: 90%;
-  height: 1px;
+  min-height: 1px;
   background: #ecf0f1;
   background: -webkit-gradient(linear, left top, right top, from(#ecf0f1), color-stop(15%, #b2bec3), color-stop(85%, #b2bec3), to(#ecf0f1));
   background: linear-gradient(90deg, #ecf0f1 0%, #b2bec3 15%, #b2bec3 85%, #ecf0f1 100%);
@@ -119,7 +121,9 @@ header {
 }
 
 #cities {
+  z-index: -20;
   width: 100%;
+  overflow-y: auto;
   -ms-flex-preferred-size: 40vh;
       flex-basis: 40vh;
   display: -webkit-box;
@@ -198,6 +202,9 @@ header {
   transition: -webkit-filter 1.2s;
   transition: filter 1.2s;
   transition: filter 1.2s, -webkit-filter 1.2s;
+  -webkit-box-shadow: 0px 2px 16px rgba(68,68,68,0.6);
+    -moz-box-shadow: 0px 2px 16px rgba(68,68,68,0.6);
+        box-shadow: 0px 2px 16px rgba(68,68,68,0.6);
 }
 
 #sky-bg {
@@ -236,6 +243,10 @@ header {
           align-items: end;
 }
 
+#displayed-name {
+  font-size: 1.6rem;
+}
+
 #displayed-temp {
   font-size: 6rem;
   cursor: pointer;
@@ -245,6 +256,15 @@ header {
 #displayed-temp #displayed-degrees {
   font-size: 2rem;
   position: absolute;
+}
+
+#displayed-condition {
+  text-align: center;
+}
+
+#displayed-condition-pic {
+  display: block;
+  margin: 0 auto;
 }
 
 #displayed-updated-at {
