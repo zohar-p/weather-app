@@ -33,6 +33,7 @@ const checkWhenWasLastUpdate = () => {
 }
 
 const onLoadPage = async ()=>{
+    renderer.setMainHeight()
     await logic.getCities()
     renderer.renderCitiesList(logic.cityData)
     navigator.geolocation.getCurrentPosition(displayLocation)

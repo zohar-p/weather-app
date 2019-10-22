@@ -3,6 +3,11 @@ class Renderer {
         this.citiesBox = $('#cities')
     }
     
+    setMainHeight() {
+        const mainDisplay = $('#main-display')
+        mainDisplay.css('height', '60vh')
+        mainDisplay.css('height', mainDisplay.height() + 'px')
+    }
 
     renderCitiesList(cities){
         this.citiesBox.empty()
