@@ -59,8 +59,8 @@ $('#search-btn').on('click', async function () {
         if(city.failed) {
             renderer.renderError(city.errorMessage)
         } else {
-            renderer.renderCitySelection(city)
             if (!city.exist) { renderer.renderCitiesList(logic.cityData) }
+            renderer.renderCitySelection(city)
             checkWhenWasLastUpdate()
         }
     }
