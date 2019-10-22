@@ -1,17 +1,3 @@
-
-// TODO:
-
-// Refresh city after ten mins
-// Add get Current location weather btn
-// handle is current location correctly
-// Prevent errors from being saved to logic.cityData
-// Make current location unique (icon / color ?)
-// manage cities order
-// Fix Icons size and layout
-// fix blink in displayed city rendering
-// failcase all calls
-// size cities list according to amount of cities
-
 const logic = new Logic
 const renderer = new Renderer
 const apiManager = new APIManager
