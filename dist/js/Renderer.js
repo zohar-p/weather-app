@@ -4,15 +4,16 @@ class Renderer {
     }
     
 
-    renderData(allCities, city){
+    renderCitiesList(cities){
         this.citiesBox.empty()
-        allCities.forEach(c=> this.useHandlebars('city-item', c, '#cities'))
-        if(city){
-            const cityBox = $(`.city-name:contains(${city.name})`).closest('.single-city')
-            this.renderBgcolor(city.temp)
-            this.renderActiveCity(cityBox)
-            this.renderDisplayedCity(city)
-        }
+        cities.forEach(c=> this.useHandlebars('city-item', c, '#cities'))
+    }
+
+    renderCitySelection(city) {
+        const cityBox = $(`[data-city-id=${city.id}]`).closest('.single-city')
+        this.renderBgcolor(city.temp)
+        this.renderActiveCity(cityBox)
+        this.renderDisplayedCity(city)
     }
 
     renderDisplayedCity(city){
