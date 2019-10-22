@@ -181,6 +181,10 @@ header {
   color: rgba(52, 152, 219, 0.3);
 }
 
+.single-city .remove-city-btn.disabled {
+  opacity: .3;
+}
+
 .single-city.active {
   -webkit-box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
           box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
@@ -262,6 +266,11 @@ header {
 #displayed-condition-pic {
   display: block;
   margin: 0 auto;
+}
+
+.icon {
+  background: rgb(0,0,0);
+  background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 55%);
 }
 
 #displayed-updated-at {
