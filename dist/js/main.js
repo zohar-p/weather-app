@@ -23,7 +23,7 @@ const checkWhenWasLastUpdate = () => {
     const duration = Math.round(moment.duration(moment().diff(moment(relCity.updatedAt))).asMinutes())
     const minutesAgoString = `Updated ${duration === 0 ? ' a few moments ' : duration === 1 ? ' a minute ' : ` ${duration} minutes `} ago`
     renderer.renderUpdatedAgo(minutesAgoString)
-    if(duration > 14) {
+    if(duration > 19) {
         if(relCity.isCurrentLocation) {
             navigator.geolocation.getCurrentPosition(displayLocation)
         } else {
