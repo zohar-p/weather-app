@@ -19,7 +19,7 @@ class Logic {
 
         let alreadyExist = this.cityData.find(c=> c.id == fetchedCityData.id)
         if(alreadyExist){
-            alreadyExist = fetchedCityData
+            fetchedCityData.exist = true
         } else {
             this.cityData.unshift(fetchedCityData)
         }

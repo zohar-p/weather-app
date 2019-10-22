@@ -5,7 +5,6 @@
 // Add get Current location weather btn
 // handle is current location correctly
 // Prevent errors from being saved to logic.cityData
-// When a city is re-searched select it
 // Make current location unique (icon / color ?)
 // manage cities order
 // Fix Icons size and layout
@@ -29,19 +28,24 @@ const displayLocation = async (position) =>{
 }
 
 const checkWhenWasLastUpdate = () => {
-    const cityID = $('[data-city-id]').data('city-id')
+    const cityID = $('[data-display-city-id]').data('display-city-id')
     const relCity = logic.cityData.find(c => c.id === cityID)
     const duration = Math.round(moment.duration(moment().diff(moment(relCity.updatedAt))).asMinutes())
     const minutesAgoString = `Updated ${duration === 0 ? ' a few moments ' : duration === 1 ? ' a minute ' : ` ${duration} minutes `} ago`
     renderer.renderUpdatedAgo(minutesAgoString)
-    if(duration > 9) { refreshCity() }
+    // if(duration > 9) {
+    //     if(relCity.isCurrentLocation) {
+    //         navigator.geolocation.getCurrentPosition(displayLocation)
+    //     } else {
+    //         refreshCity()
+    //     }
+    // }
 }
 
 const onLoadPage = async ()=>{
     await logic.getCities()
     renderer.renderData(logic.cityData)
-    const currentLocationExist = $('.city-name:contains("Current Location")').length
-    currentLocationExist ? null : navigator.geolocation.getCurrentPosition(displayLocation)
+    navigator.geolocation.getCurrentPosition(displayLocation)
 }
 
 const refreshCity = async () => {
@@ -58,7 +62,7 @@ $('#search-btn').on('click', async function () {
         // TODO: handle empty input
     } else {
         const city = await logic.getCityData(searchVal)
-        city.failed ? renderer.renderError(city.errorMessage) : renderer.renderData(logic.cityData, city) // fix error handling
+        city.failed ? renderer.renderError(city.errorMessage) : city.exist ? selectCity(city) : renderer.renderData(logic.cityData, city) // fix error handling
         checkWhenWasLastUpdate()
     }
 });
@@ -77,14 +81,18 @@ $('#cities').on('click', '.remove-city-btn', async function () {
     renderer.renderData(logic.cityData)
 });
 
-$('#cities').on('click', '.city-preview', function () {
-    const cityBox = $(this).closest('.single-city')
-    const cityName = cityBox.find('.city-name').text()
-    const relCity = logic.cityData.find(c => c.name == cityName)
+const selectCity = relCity => {
+    const cityBox = $(`[data-city-id=${relCity.id}]`)
     renderer.renderDisplayedCity({...relCity})
     renderer.renderActiveCity(cityBox)
     renderer.renderBgcolor(relCity.temp)
     checkWhenWasLastUpdate()
+}
+
+$('#cities').on('click', '.city-preview', function () {
+    const cityID = $(this).closest('[data-city-id]').data('city-id')
+    const relCity = logic.cityData.find(c => c.id == cityID)
+    selectCity(relCity)
 });
 
 $('#search-inp').on('focus', function () {
@@ -92,8 +100,6 @@ $('#search-inp').on('focus', function () {
         .removeClass('error')
 })
 
-$('#displayed-city').on('click', '#refresh', async function () {
-    refreshCity()
-});
+$('#displayed-city').on('click', '#refresh', refreshCity); 
 
 onLoadPage()
