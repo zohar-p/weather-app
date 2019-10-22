@@ -21,7 +21,7 @@ body {
 }
 
 main {
-  height: 100vh;
+  /* height: 100vh; */
   overflow: hidden;
   pointer-events: none;
   display: -webkit-box;
