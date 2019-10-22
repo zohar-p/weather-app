@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 // TODO: set required properly
 const citySchema = new Schema({
+    id: {type: Number, required: true},
     name: {type: String, required: true},
     updatedAt: {type: Date, required: true},
     temp: {type: Number, required: true},

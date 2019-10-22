@@ -50,14 +50,6 @@ class Renderer {
         $('#search-inp').attr('placeholder', error)
             .addClass('error')
     }
-
-    formatTime(time){
-        time = moment.utc(time).local()
-        // time = moment.utc(time)
-        // .local().format('YYYY-MM-DD HH:mm:ss')
-        time = moment(time).fromNow()
-        return time
-    }
     
     useHandlebars(templateName, data, appendTo){
         const src = $('#'+templateName+'-template').html()

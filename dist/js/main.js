@@ -1,14 +1,14 @@
 
 // TODO:
 
-// Fix refresh
-// updatedAt apears as mins ago (fix format time)
+// Refresh city after ten mins
+// Add get Current location weather btn
+// handle is current location correctly
+// Prevent errors from being saved to logic.cityData
 // When a city is re-searched select it
-// Make current location unique - no option to save it and maybe different appearence
-// add Cron timer for repeating calls.
-// add set interval for updated at
+// Make current location unique (icon / color ?)
 // manage cities order
-// handle search fail
+// Fix Icons size and layout
 // fix blink in displayed city rendering
 // failcase all calls
 // size cities list according to amount of cities
@@ -29,10 +29,12 @@ const displayLocation = async (position) =>{
 }
 
 const checkWhenWasLastUpdate = () => {
-    const cityName = $('#displayed-name').text()
-    const relCity = logic.cityData.find(c => c.name === cityName)
-    const minutesUpdatedAgo = moment(relCity.updatedAt).fromNow()
-    renderer.renderUpdatedAgo(minutesUpdatedAgo)
+    const cityID = $('[data-city-id]').data('city-id')
+    const relCity = logic.cityData.find(c => c.id === cityID)
+    const duration = Math.round(moment.duration(moment().diff(moment(relCity.updatedAt))).asMinutes())
+    const minutesAgoString = `Updated ${duration === 0 ? ' a few moments ' : duration === 1 ? ' a minute ' : ` ${duration} minutes `} ago`
+    renderer.renderUpdatedAgo(minutesAgoString)
+    if(duration > 9) { refreshCity() }
 }
 
 const onLoadPage = async ()=>{
@@ -42,6 +44,13 @@ const onLoadPage = async ()=>{
     currentLocationExist ? null : navigator.geolocation.getCurrentPosition(displayLocation)
 }
 
+const refreshCity = async () => {
+    const cityName = $('#displayed-name').text()
+    const relCity = await logic.refreshDisplayedCity(cityName)
+    renderer.renderDisplayedCity(relCity)
+    checkWhenWasLastUpdate()
+}
+
 $('#search-btn').on('click', async function () { 
     const searchVal = $('#search-inp').val()
     $('#search-inp').val('')
@@ -49,7 +58,7 @@ $('#search-btn').on('click', async function () {
         // TODO: handle empty input
     } else {
         const city = await logic.getCityData(searchVal)
-        city.hasOwnProperty('error') ? renderer.renderError(city.error) : renderer.renderData(logic.cityData, city) // fix error handling
+        city.failed ? renderer.renderError(city.errorMessage) : renderer.renderData(logic.cityData, city) // fix error handling
         checkWhenWasLastUpdate()
     }
 });
@@ -84,9 +93,7 @@ $('#search-inp').on('focus', function () {
 })
 
 $('#displayed-city').on('click', '#refresh', async function () {
-    const cityName = $('#displayed-name').text()
-    const relCity = await logic.refreshDisplayedCity(cityName)
-    renderer.renderDisplayedCity(relCity)
+    refreshCity()
 });
 
 onLoadPage()

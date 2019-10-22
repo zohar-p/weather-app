@@ -14,12 +14,13 @@ router.get('/city/', (req, res)=>{
             weatherData = JSON.parse(weatherData)
             const locationWeather = {
                 id: weatherData.id,
-                name: isCurrentLocation ? 'Current Location' : weatherData.name,
+                name: weatherData.name,
                 updatedAt: moment.unix(weatherData.dt),
                 temp: Math.round(weatherData.main.temp * 10) / 10,
                 condition: weatherData.weather[0].description,
                 conditionPic: `http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`,
-                isSaved: false
+                isSaved: false,
+                isCurrentLocation
             }
             res.send(locationWeather)        
     })
@@ -45,7 +46,7 @@ router.delete('/city/:cityName', async (req, res)=>{
 router.put('/city', (req, res) => {
     const cityName = req.body.cityName
     const isSaved = req.body.isSaved == 'false' ? false : true
-    request.get(weatherApiUrl + cityName).then(weatherData =>{
+    request.get(weatherApiUrl + 'q=' + cityName).then(weatherData =>{
         weatherData = JSON.parse(weatherData)
         const updatedCityData = {
             name: weatherData.location.name,

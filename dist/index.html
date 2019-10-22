@@ -37,7 +37,12 @@
 <!-- HANDLEBARS TEMPLATE -->
 <script id="displayed-city-template" type="test/text/x-handlebars-template">
     <div id="placeholder"></div>
-    <h3 id="displayed-name">{{name}}</h3>
+    {{#if isCurrentLocation}}
+    <h3>Current Location</h3>
+    <h4 id="displayed-name" data-city-id={{id}}>({{name}})</h4>
+    {{else}}
+    <h3 id="displayed-name" data-city-id={{id}}>{{name}}</h3>
+    {{/if}}
     <div id="displayed-temp">{{temp}}<span id="displayed-degrees">&#8451</span></div>
     <div id="displayed-condition">
         <img id="displayed-condition-pic" src="{{conditionPic}}">

@@ -17,11 +17,14 @@ class Logic {
 
         if(fetchedCityData.failed) { return fetchedCityData }
 
-        const alreadyExist = this.cityData.find(c=> c.id == fetchedCityData.id)
-        if(alreadyExist) { return {error: 'This city is already in your list' } } // TODO: instead - select the city
+        let alreadyExist = this.cityData.find(c=> c.id == fetchedCityData.id)
+        if(alreadyExist){
+            alreadyExist = fetchedCityData
+        } else {
+            this.cityData.unshift(fetchedCityData)
+        }
 
-        this.cityData.unshift(fetchedCityData)
-        return this.cityData[0]
+        return fetchedCityData
     }
 
     async saveCity(cityName){
@@ -39,14 +42,9 @@ class Logic {
     }
 
     async refreshDisplayedCity(cityName){
-        const isCitySaved = this.cityData
-            .find(c => c.name == cityName)
-            .isSaved
-        console.log(isCitySaved ? 'city is saved' : 'city not saved')
-        const updatedCity = await apiManager.updateDisplayedCity(cityName, isCitySaved)
-        console.log(updatedCity)
         const relCityIndex = this.cityData.findIndex(c => c.name == cityName)
-        this.cityData[relCityIndex] = updatedCity
-        return this.cityData[relCityIndex]
+        const query = `q=${cityName}`
+        const updatedCity = await apiManager.fetchCityData(query)
+        return this.cityData[relCityIndex] = updatedCity
     }
 }
