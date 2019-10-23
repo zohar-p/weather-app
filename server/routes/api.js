@@ -5,6 +5,18 @@ const weatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?units=met
 const City = require('../models/City')
 const moment = require('moment')
 
+const extractData = (data, isCurrentLocation) => {
+    return {
+        id: data.id,
+        name: data.name,
+        updatedAt: moment.unix(data.dt),
+        temp: Math.round(data.main.temp * 10) / 10,
+        condition: data.weather[0].description,
+        conditionPic: `https://openweathermap.org/img/wn/${data.weather[0].icon}`,
+        isSaved: false
+    }
+}
+
 router.get('/city/', (req, res)=>{
     const {lat, long, q} = req.query
     const isCurrentLocation = !q
@@ -12,16 +24,8 @@ router.get('/city/', (req, res)=>{
     request.get(weatherApiUrl + query)
         .then(weatherData =>{
             weatherData = JSON.parse(weatherData)
-            const locationWeather = {
-                id: weatherData.id,
-                name: weatherData.name,
-                updatedAt: moment.unix(weatherData.dt),
-                temp: Math.round(weatherData.main.temp * 10) / 10,
-                condition: weatherData.weather[0].description,
-                conditionPic: `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}`,
-                isSaved: false,
-                isCurrentLocation
-            }
+            const locationWeather = extractData(weatherData)
+            locationWeather.isCurrentLocation = isCurrentLocation
             res.send(locationWeather)        
     })
         .catch(error => res.send({failed: true, errorMessage: "Couldn't find city", error}))
@@ -44,24 +48,10 @@ router.delete('/city/:cityName', async (req, res)=>{
 })
 
 router.put('/city', (req, res) => {
-    const cityName = req.body.cityName
-    const isSaved = req.body.isSaved == 'false' ? false : true
-    request.get(weatherApiUrl + 'q=' + cityName).then(weatherData =>{
-        weatherData = JSON.parse(weatherData)
-        const updatedCityData = {
-            name: weatherData.location.name,
-            updatedAt: weatherData.current.last_updated,
-            temp: weatherData.current.temp_c,
-            condition: weatherData.current.condition.text,
-            conditionPic: weatherData.current.condition.icon,
-            isSaved
-        }
-        if(!isSaved){
-            res.send(updatedCityData)
-        } else {
-            City.findOneAndUpdate({name: cityName}, {...updatedCityData}, {new: true}).then(doc => res.send(doc))
-        }
-    }).catch(err => res.send(err))
+    const city = req.body
+    City.findOneAndUpdate({name: city.name}, {...city}, {new: true})
+        .then(doc => res.send(doc))
+        .catch(err => res.send(err))
 })
 
 module.exports = router

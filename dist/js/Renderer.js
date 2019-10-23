@@ -22,7 +22,7 @@ class Renderer {
     }
 
     renderDisplayedCity(city){
-        $('#displayed-city').animate({opacity: 0}, 200).empty()
+        $('#displayed-city').animate({opacity: 0}, 10).empty()
         this.useHandlebars('displayed-city', city, '#displayed-city')
         $('#displayed-city').animate({opacity: 1}, 200)
     }
