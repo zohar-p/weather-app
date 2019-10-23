@@ -61,6 +61,10 @@ header {
           align-items: center;
 }
 
+#search-form {
+  width: 100%;
+}
+
 #search-inp {
   padding: .2rem .6rem;
   margin-right: .6rem;

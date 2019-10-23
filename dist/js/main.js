@@ -72,7 +72,10 @@ const refreshCity = async () => {
     }
 }
 
-$('#search-btn').on('click', async function () { 
+
+
+$('#search-form').on('submit', async function () { 
+    event.preventDefault()
     const searchVal = $('#search-inp').val()
     $('#search-inp').val('')
     if(searchVal){
