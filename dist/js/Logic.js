@@ -11,20 +11,15 @@ class Logic {
         }
     }
 
-    async getCityData(location, isCurrentLocation){
-        const query = isCurrentLocation ? `lat=${location.lat}&long=${location.long}` : `q=${location}`
+    async getCityData(location){
+        const query = location instanceof Object ? `lat=${location.lat}&long=${location.long}` : `q=${location}`
         const fetchedCityData = await apiManager.fetchCityData(query)
 
-        if(fetchedCityData.failed) { return fetchedCityData }
-
-        let alreadyExist = this.cityData.find(c=> c.id == fetchedCityData.id)
-        if(alreadyExist){
-            fetchedCityData.exist = true
-        } else {
-            this.cityData.unshift(fetchedCityData)
-        }
-
         return fetchedCityData
+    }
+
+    insertCity(city) {
+        this.cityData.unshift(city)
     }
 
     async saveCity(cityName){
@@ -36,16 +31,18 @@ class Logic {
     }
 
     removeCity(cityName){
+        if(cityName === 'Current Location') { return }
         const relCity = this.cityData.find(c => c.name == cityName)
         this.cityData = this.cityData.filter(c => c.name != cityName)
         relCity.isSaved ? apiManager.deleteCity(cityName) : null
     }
 
-    async refreshDisplayedCity(cityName){
-        const relCityIndex = this.cityData.findIndex(c => c.name == cityName)
+    async refreshDisplayedCity(cityName, cityIndex){
+        const relCityIndex = cityIndex || this.cityData.findIndex(c => c.name == cityName)
         const query = `q=${cityName}`
         const updatedCity = await apiManager.fetchCityData(query)
         updatedCity.isSaved = this.cityData[relCityIndex].isSaved
+        if(updatedCity.isSaved) { apiManager.updateCity(updatedCity) }
         return this.cityData[relCityIndex] = updatedCity
     }
 }

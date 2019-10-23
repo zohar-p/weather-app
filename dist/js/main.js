@@ -2,15 +2,19 @@ const logic = new Logic
 const renderer = new Renderer
 const apiManager = new APIManager
 
+let intervalCounter = 0
+
 const displayLocation = async (position) =>{
     const geolocation = {
         lat: position.coords.latitude,
         long: position.coords.longitude
     }
-    const city = await logic.getCityData(geolocation, true)
+    const city = await logic.getCityData(geolocation)
     if (city.failed) {
         renderer.renderError(city.errorMessage)
     } else {
+        let currentLocationIndex = logic.cityData.findIndex(c => c.isCurrentLocation)
+        currentLocationIndex === -1 ? logic.insertCity(city) : logic.cityData[currentLocationIndex] = city
         renderer.renderCitiesList(logic.cityData)
         renderer.renderCitySelection(city)
         checkWhenWasLastUpdate()
@@ -32,11 +36,28 @@ const checkWhenWasLastUpdate = () => {
     }
 }
 
+const refreshAllCities = () => {
+    logic.cityData.forEach((c, i) => {
+        logic.refreshDisplayedCity(c.name, i)
+    })
+}
+
+const intervalTic = () => {
+    checkWhenWasLastUpdate()
+    intervalCounter++
+    if(intervalCounter > 14) {
+        refreshAllCities()
+        intervalCounter = 0
+    }
+}
+
 const onLoadPage = async ()=>{
+    renderer.setMainHeight()
     await logic.getCities()
+    refreshAllCities()
     renderer.renderCitiesList(logic.cityData)
     navigator.geolocation.getCurrentPosition(displayLocation)
-    setInterval(checkWhenWasLastUpdate, 60000)
+    setInterval(intervalTic, 60000)
 }
 
 const refreshCity = async () => {
@@ -59,7 +80,11 @@ $('#search-btn').on('click', async function () {
         if(city.failed) {
             renderer.renderError(city.errorMessage)
         } else {
-            if (!city.exist) { renderer.renderCitiesList(logic.cityData) }
+            const alreadyExist = logic.cityData.find(c=> c.id == city.id)
+            if (!alreadyExist) {
+                logic.insertCity(city)
+                renderer.renderCitiesList(logic.cityData)
+            }
             renderer.renderCitySelection(city)
             checkWhenWasLastUpdate()
         }
