@@ -13,7 +13,8 @@ const displayLocation = async (position) =>{
     if (city.failed) {
         renderer.renderError(city.errorMessage)
     } else {
-        logic.insertCity(city)
+        let currentLocationIndex = logic.cityData.findIndex(c => c.isCurrentLocation)
+        currentLocationIndex === -1 ? logic.insertCity(city) : logic.cityData[currentLocationIndex] = city
         renderer.renderCitiesList(logic.cityData)
         renderer.renderCitySelection(city)
         checkWhenWasLastUpdate()
