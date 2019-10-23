@@ -13,6 +13,7 @@ const displayLocation = async (position) =>{
     if (city.failed) {
         renderer.renderError(city.errorMessage)
     } else {
+        logic.insertCity(city)
         renderer.renderCitiesList(logic.cityData)
         renderer.renderCitySelection(city)
         checkWhenWasLastUpdate()
@@ -44,7 +45,8 @@ const intervalTic = () => {
     checkWhenWasLastUpdate()
     intervalCounter++
     if(intervalCounter > 14) {
-        logic.getCities() // make refresh all cities function
+        refreshAllCities()
+        intervalCounter = 0
     }
 }
 
@@ -77,9 +79,11 @@ $('#search-btn').on('click', async function () {
         if(city.failed) {
             renderer.renderError(city.errorMessage)
         } else {
-            logic.insertCity(city)
             const alreadyExist = logic.cityData.find(c=> c.id == city.id)
-            if (!alreadyExist) { renderer.renderCitiesList(logic.cityData) }
+            if (!alreadyExist) {
+                logic.insertCity(city)
+                renderer.renderCitiesList(logic.cityData)
+            }
             renderer.renderCitySelection(city)
             checkWhenWasLastUpdate()
         }
