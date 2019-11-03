@@ -2,5 +2,5 @@ node_modules
 .DS_Store
 .env
 .vscode/
-package-lock.json
+./package-lock.json
 todo.md
