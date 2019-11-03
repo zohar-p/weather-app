@@ -5,13 +5,13 @@ A simple mobile web app for getting the current weather of chosen locations arou
 - Use the search bar to find out the current weather at a city of your choice.
 - Tap a city from the list to check out its current weather.
 
-![GIF preview of the app - search and select](https://media.giphy.com/media/gfeZx7KDvJ9ER1rpjA/giphy.gif)
+![GIF preview of the app - search and select](gifs/search_and_select.gif)
 
 - Each city weather data will automatically refresh every 20 mins, But if you're anxious to see if there's new data for the displayed city tap the refresh icon at the bottom left corner of the current weather window.
 - Remove a city from the list by tapping the X icon.
 - Tap the pin icon to save a city so it will persist on refresh.
 
-![GIF preview of the app - refreshing, saving and deleting](https://media.giphy.com/media/WUxFN1I1wcTAYEld7O/giphy.gif)
+![GIF preview of the app - refreshing, saving and deleting](gifs/refresh_save_delete.gif)
 
 You can check out the web app [live on Heroku](https://how-is-the-weather.herokuapp.com/).
 
